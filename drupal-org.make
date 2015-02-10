@@ -86,7 +86,7 @@ projects[profile2][version] = 1.3
 projects[profile2][type] = "module"
 projects[profile2][subdir] = "contrib"
 
-projects[realname][version] = 1.3
+projects[realname][version] = 1.2
 projects[realname][type] = "module"
 projects[realname][subdir] = "contrib"
 
