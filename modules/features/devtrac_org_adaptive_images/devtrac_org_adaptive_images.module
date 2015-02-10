@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DevTrac Org Adaptive images feature.
+ */
+
+include_once 'devtrac_org_adaptive_images.features.inc';
