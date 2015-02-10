@@ -38,7 +38,7 @@ projects[event_calendar][version] = 1.5
 projects[event_calendar][type] = "module"
 projects[event_calendar][subdir] = "contrib"
 
-projects[features_extra][version] = 1.0-beta2
+projects[features_extra][version] = 1.0-beta1
 projects[features_extra][type] = "module"
 projects[features_extra][subdir] = "contrib"
 
