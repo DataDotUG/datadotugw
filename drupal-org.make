@@ -46,6 +46,11 @@ projects[fontawesome][version] = 2.1
 projects[fontawesome][type] = "module"
 projects[fontawesome][subdir] = "contrib"
 
+projects[google_groups][version] = 2.0
+projects[google_groups][type] = "module"
+projects[google_groups][subdir] = "contrib"
+projects[google_groups][patch][] = "http://cgit.drupalcode.org/google_groups/patch/?id=81b057b01020506d27763bb93e644054f53be9fb"
+
 projects[icon][version] = 1.0-beta5
 projects[icon][type] = "module"
 projects[icon][subdir] = "contrib"
@@ -94,9 +99,17 @@ projects[service_links][version] = 2.2
 projects[service_links][type] = "module"
 projects[service_links][subdir] = "contrib"
 
+projects[twitter_block][version] = 2.2
+projects[twitter_block][type] = "module"
+projects[twitter_block][subdir] = "contrib"
+
 projects[social_media_links][version] = 1.4
 projects[social_media_links][type] = "module"
 projects[social_media_links][subdir] = "contrib"
+
+projects[webform][version] = 4.2
+projects[webform][type] = "module"
+projects[webform][subdir] = "contrib"
 
 projects[weight][version] = 2.4
 projects[weight][type] = "module"
@@ -126,10 +139,6 @@ projects[metatag][version] = 1.4
 projects[metatag][type] = "module"
 projects[metatag][subdir] = "contrib"
 
-projects[chosen][version] = 2.0-beta4
-projects[chosen][type] = "module"
-projects[chosen][subdir] = "contrib"
-
 projects[schemaorg][version] = 1.0-rc1
 projects[schemaorg][type] = "module"
 projects[schemaorg][subdir] = "contrib"
@@ -152,11 +161,11 @@ projects[bootstrap][version] = 3.0
 projects[bootstrap][type] = "theme"
 
 ;Main theme
-projects[bukassa][version] = "1.x-dev"
-projects[bukassa][type] = "theme"
-projects[bukassa][download][type] = "git"
-projects[bukassa][download][branch] = "7.x-1.x"
-projects[bukassa][download][url]  = "http://git.drupal.org/sandbox/batje/2262849.git"
+projects[bukasa][version] = "1.x-dev"
+projects[bukasa][type] = "theme"
+projects[bukasa][download][type] = "git"
+projects[bukasa][download][branch] = "7.x-1.x"
+projects[bukasa][download][url]  = "http://git.drupal.org/sandbox/batje/2262849.git"
 
 libraries[colorbox][download][type] = "file"
 libraries[colorbox][download][url] = "https://github.com/jackmoore/colorbox/archive/1.x.zip"
@@ -167,3 +176,6 @@ libraries[chosen][download][type] = "file"
 libraries[chosen][download][url] = "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip"
 libraries[chosen][directory_name] = "chosen"
 libraries[chosen][destination] = "libraries"
+
+
+https://github.com/oyejorge/less.php/releases/download/v1.7.0.2/less.php_1.7.0.2.zip
