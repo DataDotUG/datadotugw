@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the DevTrac Org Frontpage feature.
- */
-
-include_once 'devtrac_org_frontpage.features.inc';

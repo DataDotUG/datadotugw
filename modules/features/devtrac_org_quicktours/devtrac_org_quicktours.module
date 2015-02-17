@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the DevTrac Org Quicktours feature.
- */
-
-include_once 'devtrac_org_quicktours.features.inc';

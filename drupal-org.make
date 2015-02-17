@@ -90,7 +90,7 @@ projects[fontawesome][subdir] = "contrib"
 projects[google_groups][version] = 2.0
 projects[google_groups][type] = "module"
 projects[google_groups][subdir] = "contrib"
-projects[google_groups][patches][] = http://cgit.drupalcode.org/google_groups/patch/?id=81b057b01020506d27763bb93e644054f53be9fb"
+projects[google_groups][patch][] = "http://cgit.drupalcode.org/google_groups/patch/?id=81b057b01020506d27763bb93e644054f53be9fb"
 
 projects[icon][version] = 1.0-beta5
 projects[icon][type] = "module"
@@ -164,6 +164,10 @@ projects[service_links][version] = 2.2
 projects[service_links][type] = "module"
 projects[service_links][subdir] = "contrib"
 
+projects[twitter_block][version] = 2.2
+projects[twitter_block][type] = "module"
+projects[twitter_block][subdir] = "contrib"
+
 projects[social_media_links][version] = 1.4
 projects[social_media_links][type] = "module"
 projects[social_media_links][subdir] = "contrib"
@@ -171,6 +175,14 @@ projects[social_media_links][subdir] = "contrib"
 projects[uuid][version] = 1.0-alpha6
 projects[uuid][type] = "module"
 projects[uuid][subdir] = "contrib"
+
+projects[webform][version] = 4.2
+projects[webform][type] = "module"
+projects[webform][subdir] = "contrib"
+
+projects[weight][version] = 2.4
+projects[weight][type] = "module"
+projects[weight][subdir] = "contrib"
 
 projects[uuid_features][version] = 1.0-alpha4
 projects[uuid_features][type] = "module"
@@ -187,6 +199,22 @@ projects[weight][subdir] = "contrib"
 projects[xmlsitemap][version] = 2.2
 projects[xmlsitemap][type] = "module"
 projects[xmlsitemap][subdir] = "contrib"
+
+projects[metatag][version] = 1.4
+projects[metatag][type] = "module"
+projects[metatag][subdir] = "contrib"
+
+projects[schemaorg][version] = 1.0-rc1
+projects[schemaorg][type] = "module"
+projects[schemaorg][subdir] = "contrib"
+
+projects[faq][version] = 1.0-rc3
+projects[faq][type] = "module"
+projects[faq][subdir] = "contrib"
+
+projects[votingapi][version] = 2.12
+projects[votingapi][type] = "module"
+projects[votingapi][subdir] = "contrib"
 
 includes[mountbatten_web_analytics] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_web_analytics.make
 includes[mountbatten_seo] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_seo.make
