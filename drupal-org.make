@@ -58,7 +58,7 @@ projects[features_extra][version] = 1.0-beta1
 projects[features_extra][type] = "module"
 projects[features_extra][subdir] = "contrib"
 
-projects[feeds][version] = 1.0-beta1
+projects[feeds][version] = 2.0-alpha8
 projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
 projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-undefined_original_author-2117537-5.patch"
