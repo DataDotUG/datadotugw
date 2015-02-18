@@ -71,13 +71,17 @@ projects[feeds_imagegrabber][version] = 1.0-alpha2
 projects[feeds_imagegrabber][type] = "module"
 projects[feeds_imagegrabber][subdir] = "contrib"
 
-projects[feeds_tamper][version] = 1.1
+projects[feeds_tamper][version] = 1.0f
 projects[feeds_tamper][type] = "module"
 projects[feeds_tamper][subdir] = "contrib"
 
 projects[field_conditional_state][version] = 2.1
 projects[field_conditional_state][type] = "module"
 projects[field_conditional_state][subdir] = "contrib"
+
+projects[field_group][version] = 1.4
+projects[field_group][type] = "module"
+projects[field__group][subdir] = "contrib"
 
 projects[fivestar][version] = 2.1
 projects[fivestar][type] = "module"
