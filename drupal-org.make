@@ -71,7 +71,7 @@ projects[feeds_imagegrabber][version] = 1.0-alpha2
 projects[feeds_imagegrabber][type] = "module"
 projects[feeds_imagegrabber][subdir] = "contrib"
 
-projects[feeds_tamper][version] = 1.0f
+projects[feeds_tamper][version] = 1.0
 projects[feeds_tamper][type] = "module"
 projects[feeds_tamper][subdir] = "contrib"
 
