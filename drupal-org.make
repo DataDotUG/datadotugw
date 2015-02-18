@@ -81,7 +81,7 @@ projects[field_conditional_state][subdir] = "contrib"
 
 projects[field_group][version] = 1.4
 projects[field_group][type] = "module"
-projects[field__group][subdir] = "contrib"
+projects[field_group][subdir] = "contrib"
 
 projects[fivestar][version] = 2.1
 projects[fivestar][type] = "module"
