@@ -246,8 +246,8 @@ function datadotug_feeds_importers_feeds_importer_default() {
             'weight' => '6',
           ),
         ),
-        'display_errors' => 1,
-        'debug_mode' => 1,
+        'display_errors' => 0,
+        'debug_mode' => 0,
         'source_encoding' => array(
           0 => 'auto',
         ),
