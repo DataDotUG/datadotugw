@@ -62,6 +62,7 @@ projects[feeds][version] = 2.0-alpha8
 projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
 projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-undefined_original_author-2117537-5.patch"
+projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source_num48_rerolled-856316.patch"
 
 projects[feeds_ex][version] = 1.0-beta1
 projects[feeds_ex][type] = "module"
@@ -246,5 +247,5 @@ libraries[jsonpath][destination] = "libraries"
 
 libraries[less][download][type] = "file"
 libraries[less][download][url] = "https://github.com/oyejorge/less.php/releases/download/v1.7.0.2/less.php_1.7.0.2.zip"
-libraries[less][directory_name] = "less"
+libraries[less][directory_name] = "less.php"
 libraries[less][destination] = "libraries"
