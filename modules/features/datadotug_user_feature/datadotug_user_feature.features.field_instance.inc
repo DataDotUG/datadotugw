@@ -10,8 +10,8 @@
 function datadotug_user_feature_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'taxonomy_term-datadotug_circle_part-field_quadrant'
-  $field_instances['taxonomy_term-datadotug_circle_part-field_quadrant'] = array(
+  // Exported field_instance: 'taxonomy_term-datadotug_circle_part-field_quadrant_image'
+  $field_instances['taxonomy_term-datadotug_circle_part-field_quadrant_image'] = array(
     'bundle' => 'datadotug_circle_part',
     'deleted' => 0,
     'description' => '',
@@ -24,13 +24,13 @@ function datadotug_user_feature_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 0,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_quadrant',
-    'label' => 'Quadrant',
-    'required' => FALSE,
+    'field_name' => 'field_quadrant_image',
+    'label' => 'Quadrant Image',
+    'required' => 1,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
@@ -43,13 +43,14 @@ function datadotug_user_feature_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'image',
       'settings' => array(
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -71,10 +72,10 @@ function datadotug_user_feature_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_first_name',
     'label' => 'First Name',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -107,9 +108,9 @@ function datadotug_user_feature_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_organisation',
     'label' => 'Organisation',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -142,10 +143,10 @@ function datadotug_user_feature_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_surname',
     'label' => 'Surname',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -176,9 +177,9 @@ function datadotug_user_feature_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_term_quadrants',
     'label' => 'Quadrants',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -196,7 +197,7 @@ function datadotug_user_feature_field_default_field_instances() {
   t('For example: John or Annie');
   t('In which Quadrants of the Circle of Open Data are you active? This helps other people find you.');
   t('Organisation');
-  t('Quadrant');
+  t('Quadrant Image');
   t('Quadrants');
   t('Surname');
   t('Your family name');

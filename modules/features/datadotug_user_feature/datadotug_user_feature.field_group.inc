@@ -82,10 +82,9 @@ function datadotug_user_feature_field_group_info() {
     'children' => array(
       0 => 'field_first_name',
       1 => 'field_surname',
-      2 => 'field_bio',
-      3 => 'picture',
-      4 => '_add_existing_field',
-      5 => 'group_datadotug',
+      2 => 'picture',
+      3 => '_add_existing_field',
+      4 => 'group_datadotug',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

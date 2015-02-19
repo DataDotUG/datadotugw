@@ -9,6 +9,7 @@ dependencies[] = jquery_update
 dependencies[] = less
 dependencies[] = libraries
 dependencies[] = strongarm
+dependencies[] = jquery_update
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[variable][] = jquery_update_compression_type

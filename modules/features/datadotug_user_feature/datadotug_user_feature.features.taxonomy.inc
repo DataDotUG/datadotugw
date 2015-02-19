@@ -10,7 +10,7 @@
 function datadotug_user_feature_taxonomy_default_vocabularies() {
   return array(
     'datadotug_circle_part' => array(
-      'name' => 'DataDotUG Circle Part',
+      'name' => 'Quadrants',
       'machine_name' => 'datadotug_circle_part',
       'description' => 'One of the four parts in the circle of Open Data',
       'hierarchy' => 0,

@@ -26,6 +26,12 @@ function datadotugw_front_page_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'pcp-pcp_profile_percent_complete' => array(
+          'module' => 'pcp',
+          'delta' => 'pcp_profile_percent_complete',
+          'region' => 'header',
+          'weight' => '-10',
+        ),
         'menu-menu-footer-menu' => array(
           'module' => 'menu',
           'delta' => 'menu-footer-menu',
@@ -152,14 +158,22 @@ function datadotugw_front_page_feature_context_default_contexts() {
       'values' => array(
         '~<front>' => '~<front>',
         '~profile' => '~profile',
-        '~book' => '~book',
-        '~user' => '~user',
-        '~blog' => '~blog',
       ),
     ),
   );
-  $context->reactions = array();
-  $context->condition_mode = 0;
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'pcp-pcp_profile_percent_complete' => array(
+          'module' => 'pcp',
+          'delta' => 'pcp_profile_percent_complete',
+          'region' => 'header',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.

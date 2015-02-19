@@ -45,10 +45,13 @@
 html {
     body {
         font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-        background: url("/images/bg.png") repeat scroll 0 0 transparent;
+        background: url("../images/bg.png") repeat scroll 0 0 transparent;
         .navbar{
            box-shadow: 0 4px 2px -4px #FFFFFF;
            margin-bottom: 0;
+        }
+        .main-container .row {
+            background-color: #fff;
         }
     }
 }
@@ -453,6 +456,54 @@ h2.block-title, .views-field-title{
     .form-text:focus {
       background-color: @input-background-color-focus;
     }
+}
+/* Graphing things */
+
+/* Count Terms on Frontpage */
+
+
+.view-id-frontpage_per_quadrant .tickLabels .xAxis .tickLabel {
+    .tickLabels();
+}
+
+.panel-bootstrap-pane {
+  margin-top: 68px;
+
+  .view-frontpage-counters, .view-frontpage-node-counters {
+    font-size: 30px;
+    .btn {
+        float: right;
+        margin-right: 50px;
+        .organisations.share {
+            display: none;
+        }
+        .datasets.partner {
+            display: none;
+        }
+    }
+    .views-row {
+        margin-top: 45px;
+    }
+  }
+}
+
+
+.tickLabels() {
+    background-repeat: no-repeat;
+    background-position: 10px;
+    &:nth-child(1) {
+      background-image: url("../images/quad1.png");
+    }
+    &:nth-child(2) {
+      background-image: url("../images/quad2.png");
+    }
+    &:nth-child(3) {
+      background-image: url("../images/quad3.png");
+    }
+    &:nth-child(4) {
+      background-image: url("../images/quad4.png");
+    }
+    
 }
 
 //.....media query for the profile page....../

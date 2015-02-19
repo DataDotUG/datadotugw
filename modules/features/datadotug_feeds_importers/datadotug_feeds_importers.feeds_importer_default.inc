@@ -200,6 +200,7 @@ function datadotug_feeds_importers_feeds_importer_default() {
         'use_pubsubhubbub' => FALSE,
         'designated_hub' => '',
         'request_timeout' => NULL,
+        'source_required' => 0,
       ),
     ),
     'parser' => array(

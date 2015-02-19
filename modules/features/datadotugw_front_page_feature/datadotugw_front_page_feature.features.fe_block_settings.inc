@@ -21,28 +21,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -59,28 +41,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -97,28 +61,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -135,28 +81,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -173,28 +101,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -211,28 +121,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -249,28 +141,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -287,28 +161,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -325,28 +181,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -363,28 +201,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),
@@ -401,28 +221,10 @@ function datadotugw_front_page_feature_default_fe_block_settings() {
     'pages' => '',
     'roles' => array(),
     'themes' => array(
-      'adminimal' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'adminimal',
-        'weight' => 0,
-      ),
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 1,
-      ),
       'bukasa' => array(
         'region' => '',
         'status' => 0,
         'theme' => 'bukasa',
-        'weight' => 0,
-      ),
-      'garland' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'garland',
         'weight' => 0,
       ),
     ),

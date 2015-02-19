@@ -570,7 +570,7 @@ function datadotug_ckan_nodetypes_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 3,
+      'weight' => 5,
     ),
   );
 
@@ -652,7 +652,64 @@ function datadotug_ckan_nodetypes_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'field_extrawidgets_hidden',
-      'weight' => 5,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'node-organisation-field_link'
+  $field_instances['node-organisation-field_link'] = array(
+    'bundle' => 'organisation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'The website of this organisation.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_link',
+    'label' => 'Website',
+    'required' => 0,
+    'settings' => array(
+      'absolute_url' => 1,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 3,
     ),
   );
 
@@ -702,7 +759,7 @@ function datadotug_ckan_nodetypes_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -745,7 +802,7 @@ function datadotug_ckan_nodetypes_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'field_extrawidgets_hidden',
-      'weight' => 4,
+      'weight' => 6,
     ),
   );
 
@@ -782,7 +839,7 @@ function datadotug_ckan_nodetypes_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 
@@ -838,6 +895,8 @@ function datadotug_ckan_nodetypes_field_default_field_instances() {
   t('Tags can be used to categorise your App');
   t('The Data.Ug user who developed the App.');
   t('The logo of your organisation');
+  t('The website of this organisation.');
+  t('Website');
   t('What is the Organisation that published this App.');
   t('What type of Application did you use the data for? (<a href="/contact">Let us know</a> if you miss a category here)');
 
