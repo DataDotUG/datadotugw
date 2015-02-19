@@ -6,6 +6,10 @@ api = 2
 
 includes[mountbatten_sitewide] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_sitewide.make
 
+projects[admin_views][version] = 1.3
+projects[admin_views][type] = "module"
+projects[admin_views][subdir] = "contrib"
+
 projects[better_exposed_filters][version] = 3.0-beta4
 projects[better_exposed_filters][type] = "module"
 projects[better_exposed_filters][subdir] = "contrib"
@@ -29,6 +33,14 @@ projects[calendar][subdir] = "contrib"
 projects[cer][version] = 3.0-alpha7
 projects[cer][type] = "module"
 projects[cer][subdir] = "contrib"
+
+projects[charts_graphs][version] = "2.0"
+projects[charts_graphs][type] = "module"
+projects[charts_graphs][subdir] = "contrib"
+
+projects[charts_graphs_flot][version] = "1.x-dev"
+projects[charts_graphs_flot][type] = "module"
+projects[charts_graphs_flot][subdir] = "contrib"
 
 projects[chosen][version] = 2.0-beta4
 projects[chosen][type] = "module"
@@ -67,7 +79,7 @@ projects[feeds_ex][version] = 1.0-beta1
 projects[feeds_ex][type] = "module"
 projects[feeds_ex][subdir] = "contrib"
 
-projects[feeds_imagegrabber][version] = 1.0-alpha2
+projects[feeds_imagegrabber[]version] = 1.0-alpha2
 projects[feeds_imagegrabber][type] = "module"
 projects[feeds_imagegrabber][subdir] = "contrib"
 
@@ -86,6 +98,13 @@ projects[field_group][subdir] = "contrib"
 projects[fivestar][version] = 2.1
 projects[fivestar][type] = "module"
 projects[fivestar][subdir] = "contrib"
+
+projects[flot][version] = "1.x-dev"
+projects[flot][type] = "module"
+projects[flot][subdir] = "contrib"
+projects[flot][patch][] = "https://www.drupal.org/files/flot-pie_options-2088021-3.patch"
+projects[flot][patch][] = "https://www.drupal.org/files/issues/flot-default_objects-2264691-4.patch"
+projects[flot][patch][] = "https://www.drupal.org/files/issues/1897440_flot_resize_module.patch"
 
 projects[fontawesome][version] = 2.1
 projects[fontawesome][type] = "module"
@@ -116,9 +135,9 @@ projects[libraries][version] = 2.2
 projects[libraries][type] = "module"
 projects[libraries][subdir] = "contrib"
 
-projects[metatag][version] = 1.4
-projects[metatag][type] = "module"
-projects[metatag][subdir] = "contrib"
+projects[link_favicon_formatter][version] = "1.6"
+projects[link_favicon_formatter][type] = "module"
+projects[link_favicon_formatter][subdir] = "contrib"
 
 projects[module_filter][version] = 2.0-alpha2
 projects[module_filter][type] = "module"
@@ -168,6 +187,10 @@ projects[service_links][version] = 2.2
 projects[service_links][type] = "module"
 projects[service_links][subdir] = "contrib"
 
+projects[table_element][version] = 1.0-beta1
+projects[table_element][type] = "module"
+projects[table_element][subdir] = "contrib"
+
 projects[twitter_block][version] = 2.2
 projects[twitter_block][type] = "module"
 projects[twitter_block][subdir] = "contrib"
@@ -180,14 +203,6 @@ projects[uuid][version] = 1.0-alpha6
 projects[uuid][type] = "module"
 projects[uuid][subdir] = "contrib"
 
-projects[webform][version] = 4.2
-projects[webform][type] = "module"
-projects[webform][subdir] = "contrib"
-
-projects[weight][version] = 2.4
-projects[weight][type] = "module"
-projects[weight][subdir] = "contrib"
-
 projects[uuid_features][version] = 1.0-alpha4
 projects[uuid_features][type] = "module"
 projects[uuid_features][subdir] = "contrib"
@@ -196,29 +211,25 @@ projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
 
-projects[weight][version] = 2.4
-projects[weight][type] = "module"
-projects[weight][subdir] = "contrib"
+projects[views_bulk_operations][version] = 3.2
+projects[views_bulk_operations][type] = "module"
+projects[views_bulk_operations][subdir] = "contrib"
 
-projects[xmlsitemap][version] = 2.2
-projects[xmlsitemap][type] = "module"
-projects[xmlsitemap][subdir] = "contrib"
-
-projects[metatag][version] = 1.4
-projects[metatag][type] = "module"
-projects[metatag][subdir] = "contrib"
-
-projects[schemaorg][version] = 1.0-rc1
-projects[schemaorg][type] = "module"
-projects[schemaorg][subdir] = "contrib"
-
-projects[faq][version] = 1.0-rc3
-projects[faq][type] = "module"
-projects[faq][subdir] = "contrib"
+projects[views_charts][version] = "1.x-dev"
+projects[views_charts][type] = "module"
+projects[views_charts][subdir] = "contrib"
 
 projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
+
+projects[webform][version] = 4.2
+projects[webform][type] = "module"
+projects[webform][subdir] = "contrib"
+
+projects[weight][version] = 2.4
+projects[weight][type] = "module"
+projects[weight][subdir] = "contrib"
 
 includes[mountbatten_web_analytics] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_web_analytics.make
 includes[mountbatten_seo] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_seo.make
@@ -238,6 +249,12 @@ libraries[chosen][download][type] = "file"
 libraries[chosen][download][url] = "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip"
 libraries[chosen][directory_name] = "chosen"
 libraries[chosen][destination] = "libraries"
+
+libraries[flot][download][type] = "file"
+libraries[flot][download][url] = "https://flot.googlecode.com/files/flot-0.7.tar.gz"
+libraries[flot][directory_name] = "flot"
+libraries[flot][type] = "library"
+libraries[flot][patch][] = "https://www.drupal.org/files/issues/1897440_flot_resize_library.patch"
 
 libraries[jsonpath][download][type] = "file"
 libraries[jsonpath][download][url] = "https://jsonpath.googlecode.com/files/jsonpath-0.8.1.php"
