@@ -13,44 +13,6 @@ function datadotugw_front_page_feature_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'join_us';
-  $context->description = '';
-  $context->tag = 'wwwdu';
-  $context->conditions = array(
-    'path' => array(
-      'values' => array(
-        'get_involved' => 'get_involved',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'block-1' => array(
-          'module' => 'block',
-          'delta' => '1',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
-        'social_media_links-social-media-links' => array(
-          'module' => 'social_media_links',
-          'delta' => 'social-media-links',
-          'region' => 'content',
-          'weight' => '-9',
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('wwwdu');
-  $export['join_us'] = $context;
-
-  $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
   $context->name = 'wwwdu_all_pages';
   $context->description = 'Things that are on every page (like the footer)';
   $context->tag = 'wwwdu';
@@ -128,50 +90,6 @@ function datadotugw_front_page_feature_context_default_contexts() {
   t('Layout for Book Pages');
   t('wwwdu');
   $export['wwwdu_book_pages'] = $context;
-
-  $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'wwwdu_community_page';
-  $context->description = '';
-  $context->tag = 'wwwdu';
-  $context->conditions = array(
-    'path' => array(
-      'values' => array(
-        'community' => 'community',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'views-community-block_2' => array(
-          'module' => 'views',
-          'delta' => 'community-block_2',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
-        'views-community-block_3' => array(
-          'module' => 'views',
-          'delta' => 'community-block_3',
-          'region' => 'content',
-          'weight' => '-9',
-        ),
-        'views-user_roles-channels' => array(
-          'module' => 'views',
-          'delta' => 'user_roles-channels',
-          'region' => 'content',
-          'weight' => '-8',
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('wwwdu');
-  $export['wwwdu_community_page'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */

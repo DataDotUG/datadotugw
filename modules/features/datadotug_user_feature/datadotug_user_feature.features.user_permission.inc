@@ -13,21 +13,27 @@ function datadotug_user_feature_user_default_permissions() {
   // Exported permission: 'access user contact forms'.
   $permissions['access user contact forms'] = array(
     'name' => 'access user contact forms',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'contact',
   );
 
   // Exported permission: 'access user profiles'.
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'user',
   );
 
   // Exported permission: 'cancel account'.
   $permissions['cancel account'] = array(
     'name' => 'cancel account',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
     'module' => 'user',
   );
 

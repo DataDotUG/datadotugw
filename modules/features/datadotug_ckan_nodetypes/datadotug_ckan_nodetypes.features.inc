@@ -9,6 +9,15 @@
  */
 function datadotug_ckan_nodetypes_default_cer() {
   $items = array();
+  $items['node:organisation:field_apps*node:datadotug_apps:field_organisation'] = entity_import('cer', '{
+    "identifier" : "node:organisation:field_apps*node:datadotug_apps:field_organisation",
+    "cer_bidirectional" : { "und" : [ { "value" : "1" } ] },
+    "cer_enabled" : { "und" : [ { "value" : "1" } ] },
+    "cer_weight" : { "und" : [ { "value" : "0" } ] },
+    "cer_left" : { "und" : [ { "path" : "node:organisation:field_apps" } ] },
+    "cer_right" : { "und" : [ { "path" : "node:datadotug_apps:field_organisation" } ] },
+    "rdf_mapping" : []
+  }');
   $items['node:organisation:field_datasets*node:dataset:field_organisation'] = entity_import('cer', '{
     "identifier" : "node:organisation:field_datasets*node:dataset:field_organisation",
     "cer_bidirectional" : { "und" : [ { "value" : "1" } ] },
@@ -16,6 +25,15 @@ function datadotug_ckan_nodetypes_default_cer() {
     "cer_weight" : { "und" : [ { "value" : "0" } ] },
     "cer_left" : { "und" : [ { "path" : "node:organisation:field_datasets" } ] },
     "cer_right" : { "und" : [ { "path" : "node:dataset:field_organisation" } ] },
+    "rdf_mapping" : []
+  }');
+  $items['user:user:field_apps*node:datadotug_apps:field_developed_by'] = entity_import('cer', '{
+    "identifier" : "user:user:field_apps*node:datadotug_apps:field_developed_by",
+    "cer_bidirectional" : { "und" : [ { "value" : "1" } ] },
+    "cer_enabled" : { "und" : [ { "value" : "1" } ] },
+    "cer_weight" : { "und" : [ { "value" : "0" } ] },
+    "cer_left" : { "und" : [ { "path" : "user:user:field_apps" } ] },
+    "cer_right" : { "und" : [ { "path" : "node:datadotug_apps:field_developed_by" } ] },
     "rdf_mapping" : []
   }');
   return $items;
@@ -36,7 +54,7 @@ function datadotug_ckan_nodetypes_ctools_plugin_api($module = NULL, $api = NULL)
 function datadotug_ckan_nodetypes_node_info() {
   $items = array(
     'datadotug_apps' => array(
-      'name' => t('datadotug_apps'),
+      'name' => t('Apps'),
       'base' => 'node_content',
       'description' => t('Example applications that do something with or for Open Data in Uganda.'),
       'has_title' => '1',
@@ -50,6 +68,14 @@ function datadotug_ckan_nodetypes_node_info() {
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
+    ),
+    'organisation' => array(
+      'name' => t('Organisation'),
+      'base' => 'node_content',
+      'description' => t('Organisations are any group of users who are active with Open Data.'),
+      'has_title' => '1',
+      'title_label' => t('Name'),
+      'help' => t('Have you checked wether your organisation already exists?'),
     ),
   );
   drupal_alter('node_info', $items);

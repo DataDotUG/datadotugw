@@ -14,7 +14,7 @@ function datadotugw_front_page_feature_default_pane_container() {
   $template->disabled = FALSE; /* Edit this to true to make a default template disabled initially */
   $template->api_version = 2;
   $template->name = 'homepage_intro';
-  $template->title = 'Homepage Intro';
+  $template->title = '';
   $template->plugin = 'text';
   $template->description = 'Welcome text on Homepage';
   $template->configuration = '';

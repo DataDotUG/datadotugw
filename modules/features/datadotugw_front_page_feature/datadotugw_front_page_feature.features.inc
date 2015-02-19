@@ -80,56 +80,7 @@ function datadotugw_front_page_feature_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'event' => array(
-      'name' => t('Event'),
-      'base' => 'node_content',
-      'description' => t('A date content type that is linked to a Views calendar.'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'get_involved' => array(
-      'name' => t('Get involved'),
-      'base' => 'node_content',
-      'description' => t('the different channels through which users can get involved in open data activities'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'upcoming_events' => array(
-      'name' => t('upcoming events'),
-      'base' => 'node_content',
-      'description' => t('all the upcoming open data events'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'webform' => array(
-      'name' => t('Webform'),
-      'base' => 'node_content',
-      'description' => t('Create a new form or questionnaire accessible to users. Submission results and statistics are recorded and accessible to privileged users.'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
   );
   drupal_alter('node_info', $items);
   return $items;
-}
-
-/**
- * Implements hook_weight_features_default_settings().
- */
-function datadotugw_front_page_feature_weight_features_default_settings() {
-  $settings = array();
-
-  $settings['get_involved'] = array(
-    'enabled' => 1,
-    'range' => 50,
-    'menu_weight' => 0,
-    'default' => 0,
-    'sync_translations' => 0,
-  );
-
-  return $settings;
 }

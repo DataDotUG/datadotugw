@@ -327,7 +327,7 @@ function datadotugw_front_page_feature_strongarm() {
         'id' => 'data-dot-ug',
         'domain' => '',
         'register' => 1,
-        'register_default' => 0,
+        'register_default' => 1,
         'register_default_forced' => 0,
       ),
     ),
