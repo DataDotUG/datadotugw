@@ -236,6 +236,7 @@ includes[mountbatten_web_analytics] = https://raw.githubusercontent.com/mountbat
 includes[mountbatten_seo] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_seo.make
 includes[mountbatten_spam_protection] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_spam_protection.make
 includes[mountbatten_web_media] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_web_media.make
+includes[mountbatten_web_media] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_developer.make
 
 ; Base theme.
 projects[bootstrap][version] = 3.0

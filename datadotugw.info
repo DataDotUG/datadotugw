@@ -3,7 +3,6 @@ description = An install profile for Data dot UG
 version = VERSION
 core = 7.x
 hidden = FALSE
-dependencies[] = adminimal_admin_menu
 dependencies[] = block
 dependencies[] = blog
 dependencies[] = book
