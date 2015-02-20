@@ -80,10 +80,6 @@ projects[feeds_ex][version] = 1.0-beta1
 projects[feeds_ex][type] = "module"
 projects[feeds_ex][subdir] = "contrib"
 
-projects[feeds_extrawidgets][version] = 1.1
-projects[feeds_extrawidgets][type] = "module"
-projects[feeds_extrawidgets][subdir] = "contrib"
-
 projects[feeds_imagegrabber[]version] = 1.0-alpha2
 projects[feeds_imagegrabber][type] = "module"
 projects[feeds_imagegrabber][subdir] = "contrib"
@@ -95,6 +91,10 @@ projects[feeds_tamper][subdir] = "contrib"
 projects[field_conditional_state][version] = 2.1
 projects[field_conditional_state][type] = "module"
 projects[field_conditional_state][subdir] = "contrib"
+
+projects[field_extrawidgets][version] = 1.1
+projects[field_extrawidgets][type] = "module"
+projects[field_extrawidgets][subdir] = "contrib"
 
 projects[field_group][version] = 1.4
 projects[field_group][type] = "module"
