@@ -172,6 +172,7 @@ projects[panels_bootstrap_styles][patches][] = "https://www.drupal.org/files/iss
 projects[pcp][version] = 1.6
 projects[pcp][type] = "module"
 projects[pcp][subdir] = "contrib"
+projects[pcp][patches][] = "https://www.drupal.org/files/issues/block_appears_for-441518-9.patch"
 
 projects[profile2][version] = 1.3
 projects[profile2][type] = "module"
