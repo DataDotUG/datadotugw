@@ -6,7 +6,7 @@ api = 2
 
 includes[mountbatten_sitewide] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_sitewide.make
 
-projects[admin_views][version] = 1.3
+projects[admin_views][version] = 1.4
 projects[admin_views][type] = "module"
 projects[admin_views][subdir] = "contrib"
 
@@ -26,7 +26,7 @@ projects[book_helper][version] = 1.0-beta3
 projects[book_helper][type] = "module"
 projects[book_helper][subdir] = "contrib"
 
-projects[calendar][version] = 3.4
+projects[calendar][version] = 3.5
 projects[calendar][type] = "module"
 projects[calendar][subdir] = "contrib"
 
@@ -58,7 +58,7 @@ projects[entityreference][version] = 1.1
 projects[entityreference][type] = "module"
 projects[entityreference][subdir] = "contrib"
 
-projects[event_calendar][version] = 1.5
+projects[event_calendar][version] = 1.9
 projects[event_calendar][type] = "module"
 projects[event_calendar][subdir] = "contrib"
 
@@ -234,7 +234,7 @@ projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
 
-projects[webform][version] = 4.2
+projects[webform][version] = 4.3
 projects[webform][type] = "module"
 projects[webform][subdir] = "contrib"
 
