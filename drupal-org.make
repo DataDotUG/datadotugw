@@ -167,6 +167,7 @@ projects[panels][subdir] = "contrib"
 projects[panels_bootstrap_styles][version] = 1.0-alpha1
 projects[panels_bootstrap_styles][type] = "module"
 projects[panels_bootstrap_styles][subdir] = "contrib"
+projects[panels_bootstrap_styles][patches][] = "https://www.drupal.org/files/issues/2152203-undefined_variable-7.patch"
 
 projects[pcp][version] = 1.6
 projects[pcp][type] = "module"
