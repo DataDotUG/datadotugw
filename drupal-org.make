@@ -80,6 +80,10 @@ projects[feeds_ex][version] = 1.0-beta1
 projects[feeds_ex][type] = "module"
 projects[feeds_ex][subdir] = "contrib"
 
+projects[feeds_extrawidgets][version] = 1.1
+projects[feeds_extrawidgets][type] = "module"
+projects[feeds_extrawidgets][subdir] = "contrib"
+
 projects[feeds_imagegrabber[]version] = 1.0-alpha2
 projects[feeds_imagegrabber][type] = "module"
 projects[feeds_imagegrabber][subdir] = "contrib"
@@ -163,6 +167,10 @@ projects[panels][subdir] = "contrib"
 projects[panels_bootstrap_styles][version] = 1.0-alpha1
 projects[panels_bootstrap_styles][type] = "module"
 projects[panels_bootstrap_styles][subdir] = "contrib"
+
+projects[pcp][version] = 1.6
+projects[pcp][type] = "module"
+projects[pcp][subdir] = "contrib"
 
 projects[profile2][version] = 1.3
 projects[profile2][type] = "module"
