@@ -250,6 +250,7 @@ includes[mountbatten_web_media] = https://raw.githubusercontent.com/mountbatten/
 ; Base theme.
 projects[bootstrap][version] = 3.0
 projects[bootstrap][type] = "theme"
+projects[bootstrap][patches] = "https://www.drupal.org/files/issues/bootstrap-webform-email.patch"
 
 libraries[colorbox][download][type] = "file"
 libraries[colorbox][download][url] = "https://github.com/jackmoore/colorbox/archive/1.x.zip"
