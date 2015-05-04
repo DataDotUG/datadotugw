@@ -50,7 +50,7 @@ projects[css_browser_selector][version] = 1.1
 projects[css_browser_selector][type] = "module"
 projects[css_browser_selector][subdir] = "contrib"
 
-projects[ds][version] = 2.7
+projects[ds][version] = 2.8
 projects[ds][type] = "module"
 projects[ds][subdir] = "contrib"
 
@@ -58,7 +58,7 @@ projects[entityreference][version] = 1.1
 projects[entityreference][type] = "module"
 projects[entityreference][subdir] = "contrib"
 
-projects[event_calendar][version] = 1.5
+projects[event_calendar][version] = 1.9
 projects[event_calendar][type] = "module"
 projects[event_calendar][subdir] = "contrib"
 
@@ -66,7 +66,7 @@ projects[faq][version] = 1.0-rc3
 projects[faq][type] = "module"
 projects[faq][subdir] = "contrib"
 
-projects[features_extra][version] = 1.0-beta1
+projects[features_extra][version] = 1.0-beta2
 projects[features_extra][type] = "module"
 projects[features_extra][subdir] = "contrib"
 
@@ -148,7 +148,7 @@ projects[module_filter][version] = 2.0-alpha2
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
 
-projects[multiblock][version] = 1.1
+projects[multiblock][version] = 1.2
 projects[multiblock][type] = "module"
 projects[multiblock][subdir] = "contrib"
 
@@ -156,7 +156,7 @@ projects[nice_menus][version] = 2.5
 projects[nice_menus][type] = "module"
 projects[nice_menus][subdir] = "contrib"
 
-projects[pane][version] = 2.5
+projects[pane][version] = 2.6
 projects[pane][type] = "module"
 projects[pane][subdir] = "contrib"
 
@@ -193,7 +193,7 @@ projects[search_config][version] = 1.1
 projects[search_config][type] = "module"
 projects[search_config][subdir] = "contrib"
 
-projects[service_links][version] = 2.2
+projects[service_links][version] = 2.3
 projects[service_links][type] = "module"
 projects[service_links][subdir] = "contrib"
 
