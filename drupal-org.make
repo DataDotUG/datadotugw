@@ -75,6 +75,7 @@ projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
 projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-undefined_original_author-2117537-5.patch"
 projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source_num48_rerolled-856316.patch"
+projects[feeds][patches][] = "https://www.drupal.org/files/issues/1127696-97.patch"
 
 projects[feeds_ex][version] = 1.0-beta1
 projects[feeds_ex][type] = "module"
@@ -169,10 +170,10 @@ projects[panels_bootstrap_styles][type] = "module"
 projects[panels_bootstrap_styles][subdir] = "contrib"
 projects[panels_bootstrap_styles][patches][] = "https://www.drupal.org/files/issues/2152203-undefined_variable-7.patch"
 
-projects[pcp][version] = 1.6
+projects[pcp][version] = 1.7
 projects[pcp][type] = "module"
 projects[pcp][subdir] = "contrib"
-projects[pcp][patches][] = "https://www.drupal.org/files/issues/block_appears_for-441518-9.patch"
+;projects[pcp][patches][] = "https://www.drupal.org/files/issues/block_appears_for-441518-9.patch"
 
 projects[profile2][version] = 1.3
 projects[profile2][type] = "module"
@@ -234,11 +235,11 @@ projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
 
-projects[webform][version] = 4.3
+projects[webform][version] = 4.8
 projects[webform][type] = "module"
 projects[webform][subdir] = "contrib"
 
-projects[weight][version] = 2.4
+projects[weight][version] = 2.5
 projects[weight][type] = "module"
 projects[weight][subdir] = "contrib"
 
