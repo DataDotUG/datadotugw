@@ -66,7 +66,7 @@ projects[faq][version] = 1.0-rc3
 projects[faq][type] = "module"
 projects[faq][subdir] = "contrib"
 
-projects[features_extra][version] = 1.0-beta2
+projects[features_extra][version] = 1.0-beta1
 projects[features_extra][type] = "module"
 projects[features_extra][subdir] = "contrib"
 
