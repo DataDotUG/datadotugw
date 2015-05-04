@@ -6,7 +6,7 @@ api = 2
 
 includes[mountbatten_sitewide] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_sitewide.make
 
-projects[admin_views][version] = 1.3
+projects[admin_views][version] = 1.4
 projects[admin_views][type] = "module"
 projects[admin_views][subdir] = "contrib"
 
@@ -26,7 +26,7 @@ projects[book_helper][version] = 1.0-beta3
 projects[book_helper][type] = "module"
 projects[book_helper][subdir] = "contrib"
 
-projects[calendar][version] = 3.4
+projects[calendar][version] = 3.5
 projects[calendar][type] = "module"
 projects[calendar][subdir] = "contrib"
 
@@ -172,6 +172,7 @@ projects[panels_bootstrap_styles][patches][] = "https://www.drupal.org/files/iss
 projects[pcp][version] = 1.6
 projects[pcp][type] = "module"
 projects[pcp][subdir] = "contrib"
+projects[pcp][patches][] = "https://www.drupal.org/files/issues/block_appears_for-441518-9.patch"
 
 projects[profile2][version] = 1.3
 projects[profile2][type] = "module"
@@ -233,7 +234,7 @@ projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
 
-projects[webform][version] = 4.2
+projects[webform][version] = 4.3
 projects[webform][type] = "module"
 projects[webform][subdir] = "contrib"
 
@@ -245,7 +246,7 @@ includes[mountbatten_web_analytics] = https://raw.githubusercontent.com/mountbat
 includes[mountbatten_seo] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_seo.make
 includes[mountbatten_spam_protection] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_spam_protection.make
 includes[mountbatten_web_media] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_web_media.make
-includes[mountbatten_web_media] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_developer.make
+includes[mountbatten_developer] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_developer.make
 
 ; Base theme.
 projects[bootstrap][version] = 3.0
