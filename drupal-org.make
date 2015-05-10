@@ -77,7 +77,7 @@ projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-undefine
 projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source_num48_rerolled-856316.patch"
 projects[feeds][patches][] = "https://www.drupal.org/files/issues/1127696-97.patch"
 
-projects[feeds_ex][version] = 1.0-beta1
+projects[feeds_ex][version] = 1.0-beta2
 projects[feeds_ex][type] = "module"
 projects[feeds_ex][subdir] = "contrib"
 
