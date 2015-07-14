@@ -70,11 +70,12 @@ projects[features_extra][version] = 1.0-beta1
 projects[features_extra][type] = "module"
 projects[features_extra][subdir] = "contrib"
 
-projects[feeds][version] = 2.0-alpha8
+projects[feeds][version] = 2.0-beta1
 projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
-projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-undefined_original_author-2117537-5.patch"
-projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source_num48_rerolled-856316.patch"
+projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-undefined-variable-original-author-2117537-6.patch"
+#projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source_num48_rerolled-856316.patch"
+projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source-856316-63.patch"
 projects[feeds][patches][] = "https://www.drupal.org/files/issues/1127696-97.patch"
 
 projects[feeds_ex][version] = 1.0-beta2
@@ -85,7 +86,7 @@ projects[feeds_imagegrabber[]version] = 1.0-alpha2
 projects[feeds_imagegrabber][type] = "module"
 projects[feeds_imagegrabber][subdir] = "contrib"
 
-projects[feeds_tamper][version] = 1.0
+projects[feeds_tamper][version] = 1.1
 projects[feeds_tamper][type] = "module"
 projects[feeds_tamper][subdir] = "contrib"
 
@@ -157,7 +158,7 @@ projects[nice_menus][version] = 2.5
 projects[nice_menus][type] = "module"
 projects[nice_menus][subdir] = "contrib"
 
-projects[pane][version] = 2.6
+projects[pane][version] = 2.7
 projects[pane][type] = "module"
 projects[pane][subdir] = "contrib"
 
@@ -235,7 +236,7 @@ projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
 
-projects[webform][version] = 4.8
+projects[webform][version] = 4.9
 projects[webform][type] = "module"
 projects[webform][subdir] = "contrib"
 
