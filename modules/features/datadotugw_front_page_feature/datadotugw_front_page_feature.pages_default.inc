@@ -171,16 +171,16 @@ function datadotugw_front_page_feature_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-2c2b344c-dad4-4441-a6dd-8c474f2aaa6c';
+    $pane->pid = 'new-79d401bf-78c2-4304-bb21-da32e6f0d88d';
     $pane->panel = 'bottom';
     $pane->type = 'views';
-    $pane->subtype = 'news_blog_pages_and_blocks';
+    $pane->subtype = 'organisations';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'override_pager_settings' => 0,
-      'use_pager' => 1,
-      'nodes_per_page' => '10',
+      'use_pager' => 0,
+      'nodes_per_page' => '1',
       'pager_id' => '0',
       'offset' => '0',
       'more_link' => 0,
@@ -189,7 +189,7 @@ function datadotugw_front_page_feature_default_page_manager_pages() {
       'link_to_view' => 0,
       'args' => '',
       'url' => '',
-      'display' => 'frontblock',
+      'display' => 'featuredblock',
       'override_title' => 0,
       'override_title_text' => '',
       'override_title_heading' => 'h2',
@@ -202,9 +202,9 @@ function datadotugw_front_page_feature_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '2c2b344c-dad4-4441-a6dd-8c474f2aaa6c';
-    $display->content['new-2c2b344c-dad4-4441-a6dd-8c474f2aaa6c'] = $pane;
-    $display->panels['bottom'][0] = 'new-2c2b344c-dad4-4441-a6dd-8c474f2aaa6c';
+    $pane->uuid = '79d401bf-78c2-4304-bb21-da32e6f0d88d';
+    $display->content['new-79d401bf-78c2-4304-bb21-da32e6f0d88d'] = $pane;
+    $display->panels['bottom'][0] = 'new-79d401bf-78c2-4304-bb21-da32e6f0d88d';
     $pane = new stdClass();
     $pane->pid = 'new-d8112d0d-77e6-4c96-898f-c56839d08f2c';
     $pane->panel = 'left_above';
@@ -311,6 +311,54 @@ function datadotugw_front_page_feature_default_page_manager_pages() {
     $display->content['new-34223642-c305-4b9b-bea7-c617d88cfe41'] = $pane;
     $display->panels['left_above'][2] = 'new-34223642-c305-4b9b-bea7-c617d88cfe41';
     $pane = new stdClass();
+    $pane->pid = 'new-2c2b344c-dad4-4441-a6dd-8c474f2aaa6c';
+    $pane->panel = 'middle';
+    $pane->type = 'views';
+    $pane->subtype = 'news_blog_pages_and_blocks';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_pager_settings' => 0,
+      'use_pager' => 1,
+      'nodes_per_page' => '10',
+      'pager_id' => '0',
+      'offset' => '0',
+      'more_link' => 0,
+      'feed_icons' => 0,
+      'panel_args' => 0,
+      'link_to_view' => 0,
+      'args' => '',
+      'url' => '',
+      'display' => 'frontblock',
+      'override_title' => 0,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => array(
+        'hide_classes' => array(
+          'hidden-xs' => 0,
+          'hidden-sm' => 0,
+          'hidden-md' => 0,
+          'hidden-lg' => 0,
+        ),
+        'additional_classes' => array(
+          'pull-left' => 0,
+          'pull-right' => 0,
+          'clearfix' => 0,
+        ),
+      ),
+      'style' => 'bootstrap_styles:well',
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '2c2b344c-dad4-4441-a6dd-8c474f2aaa6c';
+    $display->content['new-2c2b344c-dad4-4441-a6dd-8c474f2aaa6c'] = $pane;
+    $display->panels['middle'][0] = 'new-2c2b344c-dad4-4441-a6dd-8c474f2aaa6c';
+    $pane = new stdClass();
     $pane->pid = 'new-04c900c6-0819-4dde-a2a5-6fe8b9f3886a';
     $pane->panel = 'right_above';
     $pane->type = 'views';
@@ -360,7 +408,7 @@ function datadotugw_front_page_feature_default_page_manager_pages() {
       'build_mode' => 'teaser',
       'link_node_title' => 1,
       'override_title' => 1,
-      'override_title_text' => 'We are thecustodians of Ugandan Open Data',
+      'override_title_text' => 'We are the custodians of Ugandan Open Data',
       'override_title_heading' => 'h2',
     );
     $pane->cache = array();

@@ -10,47 +10,35 @@
 function datadotug_user_feature_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'taxonomy_term-datadotug_circle_part-field_quadrant_image'
-  $field_instances['taxonomy_term-datadotug_circle_part-field_quadrant_image'] = array(
-    'bundle' => 'datadotug_circle_part',
+  // Exported field_instance: 'user-user-field_apps'
+  $field_instances['user-user-field_apps'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'image',
+        'module' => 'entityreference',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
+          'link' => 1,
         ),
-        'type' => 'image',
-        'weight' => 1,
+        'type' => 'entityreference_label',
+        'weight' => -5,
       ),
     ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_quadrant_image',
-    'label' => 'Quadrant Image',
-    'required' => 1,
+    'entity_type' => 'user',
+    'field_name' => 'field_apps',
+    'label' => 'Apps',
+    'required' => FALSE,
     'settings' => array(
-      'alt_field' => 0,
-      'default_image' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'image',
-      'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'image_image',
-      'weight' => 2,
+      'module' => 'field_extrawidgets',
+      'settings' => array(),
+      'type' => 'field_extrawidgets_hidden',
+      'weight' => 4,
     ),
   );
 
@@ -62,10 +50,9 @@ function datadotug_user_feature_field_default_field_instances() {
     'description' => 'For example: John or Annie',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'module' => 'text',
+        'label' => 'hidden',
         'settings' => array(),
-        'type' => 'text_default',
+        'type' => 'hidden',
         'weight' => 2,
       ),
     ),
@@ -102,12 +89,12 @@ function datadotug_user_feature_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 0,
+        'weight' => -20,
       ),
     ),
     'entity_type' => 'user',
     'field_name' => 'field_organisation',
-    'label' => 'Organisation',
+    'label' => 'Organisations',
     'required' => 0,
     'settings' => array(
       'user_register_form' => 0,
@@ -125,6 +112,40 @@ function datadotug_user_feature_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_quadrants'
+  $field_instances['user-user-field_quadrants'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'In which Quadrants of the Circle of Open Data are you active? This helps other people find you.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'ds',
+        'settings' => array(
+          'taxonomy_term_link' => 1,
+          'taxonomy_term_separator' => ' ',
+        ),
+        'type' => 'ds_taxonomy_separator',
+        'weight' => -15,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_quadrants',
+    'label' => 'Quadrants',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -18,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_surname'
   $field_instances['user-user-field_surname'] = array(
     'bundle' => 'user',
@@ -134,9 +155,8 @@ function datadotug_user_feature_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
+        'type' => 'hidden',
         'weight' => 3,
       ),
     ),
@@ -159,45 +179,14 @@ function datadotug_user_feature_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_term_quadrants'
-  $field_instances['user-user-field_term_quadrants'] = array(
-    'bundle' => 'user',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'In which Quadrants of the Circle of Open Data are you active? This helps other people find you.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_term_quadrants',
-    'label' => 'Quadrants',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => -18,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
+  t('Apps');
   t('Eh, at least be a member of DatadotUg!');
   t('First Name');
   t('For example: John or Annie');
   t('In which Quadrants of the Circle of Open Data are you active? This helps other people find you.');
-  t('Organisation');
-  t('Quadrant Image');
+  t('Organisations');
   t('Quadrants');
   t('Surname');
   t('Your family name');

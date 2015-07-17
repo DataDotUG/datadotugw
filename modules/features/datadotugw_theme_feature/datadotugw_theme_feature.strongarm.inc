@@ -51,7 +51,7 @@ function datadotugw_theme_feature_strongarm() {
     'default_favicon' => 1,
     'favicon_path' => '',
     'favicon_upload' => '',
-    'general__active_tab' => 'edit-theme-settings',
+    'general__active_tab' => 'edit-logo',
     'bootstrap__active_tab' => 'edit-components',
     'bootstrap_breadcrumb' => '0',
     'bootstrap_breadcrumb_home' => 0,

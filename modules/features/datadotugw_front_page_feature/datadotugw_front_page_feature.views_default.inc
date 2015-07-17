@@ -49,7 +49,7 @@ function datadotugw_front_page_feature_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a class="btn btn-default [type] register" href="user/register" role="button">Register</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = ' Users<a class="btn btn-default [type] register" href="user/register" role="button">Register</a>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -135,7 +135,8 @@ function datadotugw_front_page_feature_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a class="btn btn-default [type] share" href="share" role="button">Share</a>
-<a class="btn btn-default [type] partner" href="partner" role="button">Partner</a>';
+<a class="btn btn-default [type] partner" href="partner" role="button">Partner</a>
+<a class="btn btn-default [type] build" href="build" role="button">Build</a>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -224,16 +225,18 @@ function datadotugw_front_page_feature_views_default_views() {
   $handler->display->display_options['style_options']['views_charts_x_labels'] = 'name';
   $handler->display->display_options['style_options']['engine'] = 'flot';
   $handler->display->display_options['style_options']['y_min'] = '';
+  $handler->display->display_options['style_options']['y_max'] = '';
   $handler->display->display_options['style_options']['y_legend'] = '';
+  $handler->display->display_options['style_options']['background_colour'] = '';
   $handler->display->display_options['style_options']['series_colours'] = '#240f0b,#1fa5a4';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
-  /* Relationship: Taxonomy term: Content using Quadrants */
+  /* Relationship: Broken/missing handler */
   $handler->display->display_options['relationships']['reverse_field_term_quadrants_node']['id'] = 'reverse_field_term_quadrants_node';
   $handler->display->display_options['relationships']['reverse_field_term_quadrants_node']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['relationships']['reverse_field_term_quadrants_node']['field'] = 'reverse_field_term_quadrants_node';
   $handler->display->display_options['relationships']['reverse_field_term_quadrants_node']['label'] = 'ContentQuadrants';
-  /* Relationship: Taxonomy term: User using Quadrants */
+  /* Relationship: Broken/missing handler */
   $handler->display->display_options['relationships']['reverse_field_term_quadrants_user']['id'] = 'reverse_field_term_quadrants_user';
   $handler->display->display_options['relationships']['reverse_field_term_quadrants_user']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['relationships']['reverse_field_term_quadrants_user']['field'] = 'reverse_field_term_quadrants_user';
@@ -299,6 +302,7 @@ function datadotugw_front_page_feature_views_default_views() {
   $handler->display->display_options['title'] = 'News';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'More News';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -359,6 +363,30 @@ function datadotugw_front_page_feature_views_default_views() {
 
   /* Display: Frontpage News & Blogs Block */
   $handler = $view->new_display('block', 'Frontpage News & Blogs Block', 'frontblock');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+
+  /* Display: Frontpage Attachment */
+  $handler = $view->new_display('attachment', 'Frontpage Attachment', 'attachment_1');
+  $handler->display->display_options['defaults']['use_more'] = FALSE;
+  $handler->display->display_options['use_more'] = TRUE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'More News';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
+  $handler->display->display_options['pager']['options']['offset'] = '1';
+  $handler->display->display_options['displays'] = array(
+    'frontblock' => 'frontblock',
+    'default' => 0,
+    'page' => 0,
+    'block' => 0,
+  );
+  $handler->display->display_options['attachment_position'] = 'after';
   $export['news_blog_pages_and_blocks'] = $view;
 
   return $export;

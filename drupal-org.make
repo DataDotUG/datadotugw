@@ -10,10 +10,6 @@ projects[admin_views][version] = 1.4
 projects[admin_views][type] = "module"
 projects[admin_views][subdir] = "contrib"
 
-projects[better_exposed_filters][version] = 3.0-beta4
-projects[better_exposed_filters][type] = "module"
-projects[better_exposed_filters][subdir] = "contrib"
-
 projects[better_formats][version] = 1.0-beta1
 projects[better_formats][type] = "module"
 projects[better_formats][subdir] = "contrib"
