@@ -26,29 +26,23 @@ function datadotugw_front_page_feature_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'pcp-pcp_profile_percent_complete' => array(
-          'module' => 'pcp',
-          'delta' => 'pcp_profile_percent_complete',
-          'region' => 'header',
-          'weight' => '-10',
-        ),
         'menu-menu-footer-menu' => array(
           'module' => 'menu',
           'delta' => 'menu-footer-menu',
           'region' => 'footer',
           'weight' => '-10',
         ),
-        'google_groups-gg1' => array(
-          'module' => 'google_groups',
-          'delta' => 'gg1',
-          'region' => 'footer',
-          'weight' => '-9',
-        ),
         'twitter_block-1' => array(
           'module' => 'twitter_block',
           'delta' => '1',
           'region' => 'footer',
           'weight' => '-8',
+        ),
+        'social_media_links-social-media-links' => array(
+          'module' => 'social_media_links',
+          'delta' => 'social-media-links',
+          'region' => 'footer',
+          'weight' => '-7',
         ),
       ),
     ),

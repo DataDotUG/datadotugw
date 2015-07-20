@@ -27,7 +27,7 @@ function datadotugw_front_page_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -47,
+    'weight' => -44,
     'customized' => 1,
   );
   // Exported menu link: main-menu_data:http://catalog.data.ug
@@ -105,7 +105,7 @@ function datadotugw_front_page_feature_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -42,
     'customized' => 1,
   );
   // Exported menu link: main-menu_maps:http://maps.data.ug
@@ -167,6 +167,7 @@ function datadotugw_front_page_feature_menu_default_menu_links() {
     'weight' => -10,
     'customized' => 1,
   );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Blog');
@@ -177,7 +178,6 @@ function datadotugw_front_page_feature_menu_default_menu_links() {
   t('Maps');
   t('People');
   t('User account');
-
 
   return $menu_links;
 }

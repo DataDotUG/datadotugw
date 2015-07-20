@@ -52,7 +52,6 @@ function datadotug_user_feature_field_group_info() {
     'weight' => '-16',
     'children' => array(
       0 => 'field_organisation',
-      1 => 'field_term_quadrants',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -83,7 +82,7 @@ function datadotug_user_feature_field_group_info() {
       0 => 'field_first_name',
       1 => 'field_surname',
       2 => 'picture',
-      3 => '_add_existing_field',
+      3 => 'field_bio',
       4 => 'group_datadotug',
     ),
     'format_type' => 'fieldset',

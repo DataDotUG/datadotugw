@@ -33,7 +33,7 @@ function datadotugw_front_page_feature_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
     'title' => array(
-      'weight' => '1',
+      'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -95,14 +95,14 @@ function datadotugw_front_page_feature_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'field_image1',
-        1 => 'title',
+        0 => 'title',
+        1 => 'field_media',
         2 => 'body',
       ),
     ),
     'fields' => array(
-      'field_image1' => 'ds_content',
       'title' => 'ds_content',
+      'field_media' => 'ds_content',
       'body' => 'ds_content',
     ),
     'classes' => array(),

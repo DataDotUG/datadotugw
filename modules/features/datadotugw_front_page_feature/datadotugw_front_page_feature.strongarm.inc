@@ -31,7 +31,7 @@ function datadotugw_front_page_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ckan_search_suggestions';
-  $strongarm->value = 'Agriculture,Fishing,Housing';
+  $strongarm->value = 'Search our complete list of datasets: eg. Agriculture Fishing Housing';
   $export['ckan_search_suggestions'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -54,13 +54,6 @@ function datadotugw_front_page_feature_strongarm() {
   $strongarm->name = 'comment_anonymous_event';
   $strongarm->value = 0;
   $export['comment_anonymous_event'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_get_involved';
-  $strongarm->value = 0;
-  $export['comment_anonymous_get_involved'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -93,13 +86,6 @@ function datadotugw_front_page_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_get_involved';
-  $strongarm->value = 1;
-  $export['comment_default_mode_get_involved'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'comment_default_mode_webform';
   $strongarm->value = 1;
   $export['comment_default_mode_webform'] = $strongarm;
@@ -117,13 +103,6 @@ function datadotugw_front_page_feature_strongarm() {
   $strongarm->name = 'comment_default_per_page_event';
   $strongarm->value = '50';
   $export['comment_default_per_page_event'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_get_involved';
-  $strongarm->value = '50';
-  $export['comment_default_per_page_get_involved'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -156,23 +135,9 @@ function datadotugw_front_page_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_get_involved';
-  $strongarm->value = 1;
-  $export['comment_form_location_get_involved'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'comment_form_location_webform';
   $strongarm->value = 1;
   $export['comment_form_location_webform'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_get_involved';
-  $strongarm->value = '1';
-  $export['comment_get_involved'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -187,13 +152,6 @@ function datadotugw_front_page_feature_strongarm() {
   $strongarm->name = 'comment_preview_event';
   $strongarm->value = '1';
   $export['comment_preview_event'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_get_involved';
-  $strongarm->value = '1';
-  $export['comment_preview_get_involved'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -215,13 +173,6 @@ function datadotugw_front_page_feature_strongarm() {
   $strongarm->name = 'comment_subject_field_event';
   $strongarm->value = 1;
   $export['comment_subject_field_event'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_get_involved';
-  $strongarm->value = 1;
-  $export['comment_subject_field_get_involved'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -275,45 +226,6 @@ function datadotugw_front_page_feature_strongarm() {
     ),
   );
   $export['field_bundle_settings_node__event'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_node__get_involved';
-  $strongarm->value = array(
-    'view_modes' => array(
-      'teaser' => array(
-        'custom_settings' => TRUE,
-      ),
-      'full' => array(
-        'custom_settings' => FALSE,
-      ),
-      'rss' => array(
-        'custom_settings' => FALSE,
-      ),
-      'search_index' => array(
-        'custom_settings' => FALSE,
-      ),
-      'search_result' => array(
-        'custom_settings' => FALSE,
-      ),
-      'print' => array(
-        'custom_settings' => FALSE,
-      ),
-      'revision' => array(
-        'custom_settings' => FALSE,
-      ),
-    ),
-    'extra_fields' => array(
-      'form' => array(
-        'title' => array(
-          'weight' => '-5',
-        ),
-      ),
-      'display' => array(),
-    ),
-  );
-  $export['field_bundle_settings_node__get_involved'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
