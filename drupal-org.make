@@ -50,7 +50,7 @@ projects[css_browser_selector][version] = 1.1
 projects[css_browser_selector][type] = "module"
 projects[css_browser_selector][subdir] = "contrib"
 
-projects[ds][version] = 2.8
+projects[ds][version] = 2.10
 projects[ds][type] = "module"
 projects[ds][subdir] = "contrib"
 
@@ -130,7 +130,7 @@ projects[job_scheduler][version] = 2.0-alpha3
 projects[job_scheduler][type] = "module"
 projects[job_scheduler][subdir] = "contrib"
 
-projects[jquery_update][version] = 2.5
+projects[jquery_update][version] = 2.6
 projects[jquery_update][type] = "module"
 projects[jquery_update][subdir] = "contrib"
 
@@ -208,7 +208,7 @@ projects[twitter_block][version] = 2.2
 projects[twitter_block][type] = "module"
 projects[twitter_block][subdir] = "contrib"
 
-projects[social_media_links][version] = 1.4
+projects[social_media_links][version] = 1.5
 projects[social_media_links][type] = "module"
 projects[social_media_links][subdir] = "contrib"
 
@@ -236,7 +236,7 @@ projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
 
-projects[webform][version] = 4.9
+projects[webform][version] = 4.10
 projects[webform][type] = "module"
 projects[webform][subdir] = "contrib"
 
