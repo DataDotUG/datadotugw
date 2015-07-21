@@ -69,10 +69,10 @@ projects[features_extra][subdir] = "contrib"
 projects[feeds][version] = 2.0-beta1
 projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
-projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-undefined-variable-original-author-2117537-6.patch"
+projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-undefined-variable-original-author-2117537-6.patch"
 #projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source_num48_rerolled-856316.patch"
-projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source-856316-63.patch"
-projects[feeds][patches][] = "https://www.drupal.org/files/issues/1127696-97.patch"
+projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-optional_source-856316-63.patch"
+projects[feeds][patch][] = "https://www.drupal.org/files/issues/1127696-97.patch"
 
 projects[feeds_ex][version] = 1.0-beta2
 projects[feeds_ex][type] = "module"
@@ -165,12 +165,11 @@ projects[panels][subdir] = "contrib"
 projects[panels_bootstrap_styles][version] = 1.0-alpha1
 projects[panels_bootstrap_styles][type] = "module"
 projects[panels_bootstrap_styles][subdir] = "contrib"
-projects[panels_bootstrap_styles][patches][] = "https://www.drupal.org/files/issues/2152203-undefined_variable-7.patch"
+projects[panels_bootstrap_styles][patch][] = "https://www.drupal.org/files/issues/2152203-undefined_variable-7.patch"
 
 projects[pcp][version] = 1.7
 projects[pcp][type] = "module"
 projects[pcp][subdir] = "contrib"
-;projects[pcp][patches][] = "https://www.drupal.org/files/issues/block_appears_for-441518-9.patch"
 
 projects[profile2][version] = 1.3
 projects[profile2][type] = "module"
@@ -249,7 +248,7 @@ includes[mountbatten_developer] = https://raw.githubusercontent.com/mountbatten/
 ; Base theme.
 projects[bootstrap][version] = 3.0
 projects[bootstrap][type] = "theme"
-projects[bootstrap][patches] = "https://www.drupal.org/files/issues/bootstrap-webform-email.patch"
+projects[bootstrap][patch] = "https://www.drupal.org/files/issues/bootstrap-webform-email.patch"
 
 libraries[colorbox][download][type] = "file"
 libraries[colorbox][download][url] = "https://github.com/jackmoore/colorbox/archive/1.x.zip"
