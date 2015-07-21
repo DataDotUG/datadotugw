@@ -28,6 +28,7 @@ dependencies[] = pcp
 dependencies[] = social_media_links
 dependencies[] = twitter_block
 dependencies[] = views_charts
+dependencies[] = views_content
 dependencies[] = webform
 dependencies[] = weight
 features[context][] = wwwdu_all_pages
