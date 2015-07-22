@@ -1,0 +1,959 @@
+diff --git a/feeds.module b/feeds.module
+index 2eb43f1..f7e6f4b 100644
+--- a/feeds.module
++++ b/feeds.module
+@@ -427,26 +427,33 @@ function feeds_theme() {
+  *   Node object or FeedsImporter id.
+  */
+ function feeds_access($action, $param) {
++  $importer_ids = array();
+   if (!in_array($action, array('import', 'clear', 'unlock'))) {
+     // If $action is not one of the supported actions, we return access denied.
+     return FALSE;
+   }
+ 
+-  $importer_id = FALSE;
+   if (is_string($param)) {
+-    $importer_id = $param;
++    // If checking the access of a single importer build the array manually.
++    $importer_ids[$param] = $param;
+   }
+   elseif ($param instanceof FeedsImporter) {
+-    $importer_id = $param->id;
++    $importer_ids[$param->id] = $param->id;
+   }
+   elseif ($param->type) {
+-    $importer_id = feeds_get_importer_id($param->type);
+-  }
+-
+-  // Check for permissions if feed id is present, otherwise return FALSE.
+-  if ($importer_id) {
+-    if (user_access('administer feeds') || user_access("{$action} {$importer_id} feeds")) {
+-      return TRUE;
++    // If checking the access for a content type, check all importers available
++    // for it.
++    $importer_ids = feeds_get_importer_ids($param->type);
++  }
++
++   // Loop through all importers. if the user has access to one, they have access
++   // to the item.
++   foreach ($importer_ids as $importer_id){
++     // Check for permissions if feed id is present, otherwise return FALSE.
++     if ($importer_id) {
++       if (user_access('administer feeds') || user_access($action . ' ' . $importer_id .' feeds')) {
++         return TRUE;
++       }
+     }
+   }
+   return FALSE;
+@@ -580,11 +587,25 @@ function feeds_entity_delete($entity, $type) {
+     ->execute();
+ }
+ 
++/*
++ * Implements hook_node_prepare().
++ */
++function feeds_node_prepare($node) {
++  if ($importer_ids = feeds_get_importer_ids($node->type)) {
++    $node->feeds = array();
++    foreach ($importer_ids as $importer_id){
++      $source = feeds_source($importer_id, empty($node->nid) ? 0 : $node->nid);
++      $node->feeds[$importer_id] = array();
++      $node->feeds[$importer_id] += $source->configDefaults();
++    }
++  }
++}
++
+ /**
+  * Implements hook_node_validate().
+  */
+ function feeds_node_validate($node, $form, &$form_state) {
+-  if (!$importer_id = feeds_get_importer_id($node->type)) {
++  if (!$importer_ids = feeds_get_importer_ids($node->type)) {
+     return;
+   }
+   // Keep a copy of the title for subsequent node creation stages.
+@@ -593,28 +614,30 @@ function feeds_node_validate($node, $form, &$form_state) {
+   $last_title = &drupal_static('feeds_node_last_title');
+   $last_feeds = &drupal_static('feeds_node_last_feeds');
+ 
+-  // On validation stage we are working with a FeedsSource object that is
+-  // not tied to a nid - when creating a new node there is no
+-  // $node->nid at this stage.
+-  $source = feeds_source($importer_id);
+-
+   // Node module magically moved $form['feeds'] to $node->feeds :P.
+   // configFormValidate may modify $last_feed, smuggle it to update/insert stage
+   // through a static variable.
+-  $last_feeds = $node->feeds;
+-  $source->configFormValidate($last_feeds);
+-
+-  // If node title is empty, try to retrieve title from feed.
+-  if (trim($node->title) == '') {
+-    try {
+-      $source->addConfig($last_feeds);
+-      if (!$last_title = $source->preview()->title) {
+-        throw new Exception();
++  $last_feeds = isset($node->feeds) ? $node->feeds : array();
++
++  // On validation stage we are working with a FeedsSource object that is
++  // not tied to a nid - when creating a new node there is no
++  // $node->nid at this stage.
++  foreach ($importer_ids as $importer_id) {
++    $source = feeds_source($importer_id);
++    $source->configFormValidate($last_feeds[$importer_id]);
++
++    // If node title is empty, try to retrieve title from feed.
++    if (trim($node->title) == '') {
++      try {
++        $source->addConfig($last_feeds[$importer_id]);
++        if (!$last_title = $source->preview()->title) {
++          throw new Exception();
++        }
+       }
+-    }
+-    catch (Exception $e) {
+-      drupal_set_message($e->getMessage(), 'error');
+-      form_set_error('title', t('Could not retrieve title from feed.'));
++      catch (Exception $e) {
++        drupal_set_message($e->getMessage(), 'error');
++        form_set_error('title', t('Could not retrieve title from feed.'), array('error' => array('title')));
++     }
+     }
+   }
+ }
+@@ -642,14 +665,16 @@ function feeds_node_presave($node) {
+ function feeds_node_insert($node) {
+   // Source attached to node.
+   feeds_node_update($node);
+-  if (isset($node->feeds) && $importer_id = feeds_get_importer_id($node->type)) {
+-    $source = feeds_source($importer_id, $node->nid);
+-    // Start import if requested.
+-    if (feeds_importer($importer_id)->config['import_on_create'] && !isset($node->feeds['suppress_import'])) {
+-      $source->startImport();
++  if (isset($node->feeds) && $importer_ids = feeds_get_importer_ids($node->type, $node->nid)) {
++    foreach ($importer_ids as $importer_id) {
++      $source = feeds_source($importer_id, $node->nid);
++      // Start import if requested.
++      if ($source->hasFetcherSource() && feeds_importer($importer_id)->config['import_on_create'] && !isset($node->feeds['suppress_import'])) {
++        $source->startImport();
++      }
++      // Schedule the source.
++      $source->schedule();
+     }
+-    // Schedule the source.
+-    $source->schedule();
+   }
+ }
+ 
+@@ -658,10 +683,20 @@ function feeds_node_insert($node) {
+  */
+ function feeds_node_update($node) {
+   // Source attached to node.
+-  if (isset($node->feeds) && $importer_id = feeds_get_importer_id($node->type)) {
+-    $source = feeds_source($importer_id, $node->nid);
+-    $source->addConfig($node->feeds);
+-    $source->save();
++  if (isset($node->feeds) && $importer_ids = feeds_get_importer_ids($node->type)) {
++    foreach ($importer_ids as $importer_id) {
++      $source = feeds_source($importer_id, $node->nid);
++      $had_fetcher_source = $source->hasFetcherSource();
++      // Config may be empty if defined so by importer.
++      if ($node->feeds[$importer_id]) {
++        $source->addConfig($node->feeds[$importer_id]);
++      }
++      $source->save();
++      // Fetcher source was emptied or filled.
++      if ($had_fetcher_source != $source->hasFetcherSource()) {
++        $source->schedule();
++      }
++    }
+   }
+ }
+ 
+@@ -673,8 +708,10 @@ function feeds_node_delete($node) {
+   // Make sure we don't leave any orphans behind: Do not use
+   // feeds_get_importer_id() to determine importer id as the importer may have
+   // been deleted.
+-  if ($importer_id = db_query("SELECT id FROM {feeds_source} WHERE feed_nid = :nid", array(':nid' => $node->nid))->fetchField()) {
+-    feeds_source($importer_id, $node->nid)->delete();
++  if ($importer_ids = db_query("SELECT id FROM {feeds_source} WHERE feed_nid = :nid", array(':nid' => $node->nid))) {
++    foreach ($importer_ids as $row) {
++      feeds_source($row->id, $node->nid)->delete();
++    }
+   }
+ }
+ 
+@@ -682,25 +719,27 @@ function feeds_node_delete($node) {
+  * Implements hook_form_BASE_FORM_ID_alter().
+  */
+ function feeds_form_node_form_alter(&$form, $form_state) {
+-  if ($importer_id = feeds_get_importer_id($form['#node']->type)) {
+-    // Set title to not required, try to retrieve it from feed.
+-    if (isset($form['title'])) {
+-      $form['title']['#required'] = FALSE;
+-    }
+-
+-    // Enable uploads.
+-    $form['#attributes']['enctype'] = 'multipart/form-data';
+-
+-    // Build form.
+-    $source = feeds_source($importer_id, empty($form['#node']->nid) ? 0 : $form['#node']->nid);
++  if ($importer_ids = feeds_get_importer_ids($form['#node']->type)) {
+     $form['feeds'] = array(
+       '#type' => 'fieldset',
+       '#title' => t('Feed'),
+       '#tree' => TRUE,
+       '#weight' => 0,
+     );
+-    $form['feeds'] += $source->configForm($form_state);
+-    $form['#feed_id'] = $importer_id;
++    foreach ($importer_ids as $importer_id) {
++      // Set title to not required, try to retrieve it from feed.
++      if (isset($form['title'])) {
++        $form['title']['#required'] = FALSE;
++      }
++
++      // Enable uploads.
++      $form['#attributes']['enctype'] = 'multipart/form-data';
++
++      // Build form.
++      $source = feeds_source($importer_id, empty($form['#node']->nid) ? 0 : $form['#node']->nid);
++      $form['feeds'][$importer_id] = $source->configForm($form_state);
++      $form['#feed_id'] = $importer_id;
++    }
+   }
+ }
+ 
+@@ -901,6 +940,48 @@ function feeds_get_importer_id($content_type) {
+ }
+ 
+ /**
++ * Gets an enabled importer configuration by content type.
++ *
++ * @param $content_type
++ *   A node type string.
++ * @param $feed_nid
++ *  Nid for feed.
++ *
++ * @return
++ *   A list of FeedsImporters attached to the given content type.
++ */
++function feeds_get_importer_ids($content_type, $feed_nid = NULL) {
++  $all_importers = _feeds_importer_digest();
++  $importers = array();
++  foreach ($all_importers as $importer => $type) {
++    if ($type == $content_type) {
++      $importers[$importer] = $importer;
++    }
++  }
++  // Sort those importers by weight.
++  if (!empty($importers)) {
++    $weights = _feeds_get_importer_weights($importers);
++    // Sort these arrays by key, then sort together.
++    ksort($weights);
++    ksort($importers);
++    array_multisort($weights, $importers);
++  }
++  return $importers;
++}
++
++function _feeds_get_importer_weights($importers, $sorted = TRUE){
++  foreach (feeds_importer_load_all() as $importer) {
++    if (isset($importers[$importer->id])) {
++      $importer_weights[$importer->id] = isset($importer->config['weight']) ? $importer->config['weight'] : '0';
++    }
++  }
++  if ($sorted) {
++    asort($importer_weights);
++  }
++  return $importer_weights;
++}
++
++/**
+  * Helper function for feeds_get_importer_id() and feeds_enabled_importers().
+  */
+ function _feeds_importer_digest() {
+diff --git a/feeds.pages.inc b/feeds.pages.inc
+index eeeab90..f99961e 100644
+--- a/feeds.pages.inc
++++ b/feeds.pages.inc
+@@ -131,25 +131,60 @@ function feeds_import_form_submit($form, &$form_state) {
+  * Render a feeds import form on node/id/import pages.
+  */
+ function feeds_import_tab_form($form, &$form_state, $node) {
+-  $importer_id = feeds_get_importer_id($node->type);
+-  $source = feeds_source($importer_id, $node->nid);
++  $total_progress = 0;
++
++  $importer_ids = feeds_get_importer_ids($node->type, $node->nid);
+ 
+   $form = array();
+-  $form['#feed_nid'] = $node->nid;
+-  $form['#importer_id'] = $importer_id;
+-  $form['#redirect'] = 'node/' . $node->nid;
+-  $form['source_status'] = array(
+-    '#type' => 'fieldset',
+-    '#title' => t('Status'),
+-    '#tree' => TRUE,
+-    '#value' => feeds_source_status($source),
+-  );
+-  $form = confirm_form($form, t('Import all content from source?'), 'node/' . $node->nid, '', t('Import'), t('Cancel'), 'confirm feeds update');
+-  $progress = $source->progressImporting();
+-  if ($progress !== FEEDS_BATCH_COMPLETE) {
+-    $form['actions']['submit']['#disabled'] = TRUE;
+-    $form['actions']['submit']['#value'] =
+-      t('Importing (@progress %)', array('@progress' => number_format(100 * $progress, 0)));
++  if ($importer_ids) {
++    $form['#feed_nid'] = $node->nid;
++    $form['#redirect'] = 'node/' . $node->nid;
++    $form = confirm_form($form, t('Import all content from source?'), 'node/' . $node->nid, '', t('Import'), t('Cancel'), 'confirm feeds update');
++    foreach ($importer_ids as $importer_id => $weight) {
++      $source = feeds_source($importer_id, $node->nid);
++      $form[$importer_id]['source_status'] = array(
++        '#type' => 'fieldset',
++        '#title' => t('@source_name: Status', array('@source_name' => $source->importer->config['name'])),
++        '#tree' => TRUE,
++        '#value' => feeds_source_status($source),
++      );
++      $progress = $source->progressImporting();
++      $total_progress += $progress;
++    }
++    if (count($importer_ids) == 1) {
++      $form['importer_ids'] = array(
++        '#type' => 'value',
++        '#value' => array($importer_id),
++      );
++    }
++    else {
++      $options = array();
++      foreach ($importer_ids as $importer_id => $weight) {
++        $source = feeds_source($importer_id, $node->nid);
++        $options[$importer_id] = $source->importer->config['name'];
++      }
++      $form['importer_ids'] = array(
++        '#type' => 'checkboxes',
++        '#options' => $options,
++        '#default_value' => array_keys($options),
++        '#title' => t('Sources'),
++        '#description' => t('Select the sources to import.'),
++      );
++    }
++
++    if (count($importer_ids)) {
++      $progress = $total_progress / count($importer_ids);
++      if ($progress !== FEEDS_BATCH_COMPLETE) {
++        $form['actions']['submit']['#disabled'] = TRUE;
++        $form['actions']['submit']['#value'] =
++          t('Importing (@progress %)', array('@progress' => number_format(100 * $progress, 0)));
++      }
++    }
++  }
++  else {
++    $form['no_source'] = array(
++      '#markup' => t('No feeds sources added to node.'),
++    );
+   }
+   return $form;
+ }
+@@ -159,7 +194,9 @@ function feeds_import_tab_form($form, &$form_state, $node) {
+  */
+ function feeds_import_tab_form_submit($form, &$form_state) {
+   $form_state['redirect'] = $form['#redirect'];
+-  feeds_source($form['#importer_id'], $form['#feed_nid'])->startImport();
++  foreach (array_filter($form_state['values']['importer_ids']) as $importer_id) {
++    feeds_source($importer_id, $form['#feed_nid'])->startImport();
++  }
+ }
+ 
+ /**
+@@ -169,30 +206,80 @@ function feeds_import_tab_form_submit($form, &$form_state) {
+  * Therefore $node may be missing.
+  */
+ function feeds_delete_tab_form(array $form, array &$form_state, FeedsImporter $importer = NULL, $node = NULL) {
++  $total_progress = 0;
+   if (empty($node)) {
+     $source = feeds_source($importer->id);
+     $form['#redirect'] = 'import/' . $source->id;
++    $importer_ids = array($importer->id);
+   }
+   else {
+-    $importer_id = feeds_get_importer_id($node->type);
+-    $source = feeds_source($importer_id, $node->nid);
+-    $form['#redirect'] = 'node/' . $source->feed_nid;
++    $importer_ids = feeds_get_importer_ids($node->type, $node->nid);
++    $form['#redirect'] = 'node/' . $node->nid;
+   }
+-  // Form cannot pass on source object.
+-  $form['#importer_id'] = $source->id;
+-  $form['#feed_nid'] = $source->feed_nid;
+-  $form['source_status'] = array(
+-    '#type' => 'fieldset',
+-    '#title' => t('Status'),
+-    '#tree' => TRUE,
+-    '#value' => feeds_source_status($source),
+-  );
+-  $form = confirm_form($form, t('Delete all items from source?'), $form['#redirect'], '', t('Delete'), t('Cancel'), 'confirm feeds update');
+-  $progress = $source->progressClearing();
+-  if ($progress !== FEEDS_BATCH_COMPLETE) {
+-    $form['actions']['submit']['#disabled'] = TRUE;
+-    $form['actions']['submit']['#value'] =
+-      t('Deleting (@progress %)', array('@progress' => number_format(100 * $progress, 0)));
++
++  if ($importer_ids) {
++    // Form cannot pass on source object.
++    $form['#feed_nid'] = empty($node) ? '' : $node->nid;
++    foreach ($importer_ids as $import_id => $weight) {
++      $source = empty($node) ? $source : feeds_source($import_id, $node->nid);
++      if (!empty($node)) {
++        $form[$import_id]['source_status'] = array(
++          '#type' => 'fieldset',
++          '#title' => t('@source_name: Status', array('@source_name' => $source->importer->config['name'])),
++          '#tree' => TRUE,
++          '#value' => feeds_source_status($source),
++        );
++      }
++      else {
++        $form['source_status'] = array(
++          '#type' => 'fieldset',
++          '#title' => t('@source_name: Status', array('@source_name' => $source->importer->config['name'])),
++          '#tree' => TRUE,
++          '#value' => feeds_source_status($source),
++        );
++      }
++      $progress = $source->progressClearing();
++      $total_progress += $progress;
++    }
++
++    // Set importer ids. If this is a stand-alone form then importer will be
++    // passed.
++    if ($importer) {
++      $form['importer_ids'] = array(
++        '#type' => 'value',
++        '#value' => array($importer->id => $importer->id),
++      );
++    }
++    else {
++      $options = array();
++      foreach ($importer_ids as $importer_id => $weight) {
++        $source = feeds_source($importer_id, $node->nid);
++        $options[$importer_id] = $source->importer->config['name'];
++      }
++      $form['importer_ids'] = array(
++        '#type' => 'checkboxes',
++        '#options' => $options,
++        '#default_value' => array_keys($options),
++        '#title' => t('Sources'),
++        '#description' => t('Select the sources to delete items from.'),
++      );
++    }
++
++    $form = confirm_form($form, t('Delete all items from source?'), $form['#redirect'], '', t('Delete'), t('Cancel'), 'confirm feeds update');
++
++    if (count($importer_ids)) {
++      $progress = $total_progress / count($importer_ids);
++      if ($progress !== FEEDS_BATCH_COMPLETE) {
++        $form['actions']['submit']['#disabled'] = TRUE;
++        $form['actions']['submit']['#value'] =
++          t('Deleting (@progress %)', array('@progress' => number_format(100 * $progress, 0)));
++      }
++    }
++  }
++  else {
++    $form['no_source'] = array(
++      '#markup' => t('No feeds sources added to node.'),
++    );
+   }
+   return $form;
+ }
+@@ -203,7 +290,9 @@ function feeds_delete_tab_form(array $form, array &$form_state, FeedsImporter $i
+ function feeds_delete_tab_form_submit($form, &$form_state) {
+   $form_state['redirect'] = $form['#redirect'];
+   $feed_nid = empty($form['#feed_nid']) ? 0 : $form['#feed_nid'];
+-  feeds_source($form['#importer_id'], $feed_nid)->startClear();
++  foreach (array_filter($form_state['values']['importer_ids']) as $importer_id) {
++    feeds_source($importer_id, $feed_nid)->startClear();
++  }
+ }
+ 
+ /**
+diff --git a/feeds_import/feeds_import.test b/feeds_import/feeds_import.test
+index ee62de0..e5a1f7a 100644
+--- a/feeds_import/feeds_import.test
++++ b/feeds_import/feeds_import.test
+@@ -100,9 +100,10 @@ class FeedsExamplesNodeTestCase extends FeedsWebTestCase {
+     $this->assertText('Updated 7 nodes');
+ 
+     // Import a tab separated file.
++    $this->drupalGet('import/node/delete-items');
+     $this->drupalPost('import/node/delete-items', array(), 'Delete');
+     $edit = array(
+-      'files[feeds]' => $this->absolutePath() . '/tests/feeds/nodes.tsv',
++      'files[node]' => $this->absolutePath() . '/tests/feeds/nodes.tsv',
+       'feeds[FeedsCSVParser][delimiter]' => "TAB",
+     );
+     $this->drupalPost('import/node', $edit, 'Import');
+diff --git a/feeds_news/feeds_news.feeds_importer_default.inc b/feeds_news/feeds_news.feeds_importer_default.inc
+index 3fa5ee7..2820269 100644
+--- a/feeds_news/feeds_news.feeds_importer_default.inc
++++ b/feeds_news/feeds_news.feeds_importer_default.inc
+@@ -106,7 +106,7 @@ function feeds_news_feeds_importer_default() {
+           ),
+           1 => array(
+             'source' => 'xmlurl',
+-            'target' => 'feeds_source',
++            'target' => 'feeds_source_feed',
+             'unique' => 1,
+           ),
+         ),
+diff --git a/feeds_ui/feeds_ui.test b/feeds_ui/feeds_ui.test
+index 4b90a6d..4291874 100644
+--- a/feeds_ui/feeds_ui.test
++++ b/feeds_ui/feeds_ui.test
+@@ -108,7 +108,7 @@ class FeedsUIUserInterfaceTestCase extends FeedsWebTestCase {
+     // Create a feed node.
+     $edit = array(
+       'title' => 'Development Seed',
+-      'feeds[FeedsHTTPFetcher][source]' => $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds') . '/tests/feeds/developmentseed.rss2',
++      'feeds[test_feed][FeedsHTTPFetcher][source]' => $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds') . '/tests/feeds/developmentseed.rss2',
+       );
+     $this->drupalPost('node/add/page', $edit, 'Save');
+     $this->assertText('Basic page Development Seed has been created.');
+diff --git a/includes/FeedsImporter.inc b/includes/FeedsImporter.inc
+index 5286b1d..15bb7a8 100644
+--- a/includes/FeedsImporter.inc
++++ b/includes/FeedsImporter.inc
+@@ -193,6 +193,7 @@ class FeedsImporter extends FeedsConfigurable {
+         'plugin_key' => 'FeedsNodeProcessor',
+       ),
+       'content_type' => '',
++      'weight' => 0,
+       'update' => 0,
+       'import_period' => 1800, // Refresh every 30 minutes by default.
+       'expire_period' => 3600, // Expire every hour by default, this is a hidden setting.
+@@ -220,6 +221,12 @@ class FeedsImporter extends FeedsConfigurable {
+       '#description' => t('A description of this importer.'),
+       '#default_value' => $config['description'],
+     );
++    $form['weight'] = array(
++      '#type' => 'textfield',
++      '#title' => t('Weight'),
++      '#description' => t('Determines the effective processing order of this feed relative to others that might run at the same time.'),
++      '#default_value' => $config['weight'],
++    );
+     $node_types = node_type_get_names();
+     array_walk($node_types, 'check_plain');
+     $form['content_type'] = array(
+diff --git a/includes/FeedsSource.inc b/includes/FeedsSource.inc
+index f5b0de3..d975b69 100644
+--- a/includes/FeedsSource.inc
++++ b/includes/FeedsSource.inc
+@@ -307,17 +307,20 @@ class FeedsSource extends FeedsConfigurable {
+       'period' => $period,
+       'periodic' => TRUE,
+     );
+-    if ($period == FEEDS_SCHEDULE_NEVER && $this->progressImporting() === FEEDS_BATCH_COMPLETE) {
++
++    if (!$this->hasFetcherSource() || $period == FEEDS_SCHEDULE_NEVER && $this->progressImporting() === FEEDS_BATCH_COMPLETE) {
+       JobScheduler::get('feeds_source_import')->remove($job);
+     }
+-    elseif ($this->progressImporting() === FEEDS_BATCH_COMPLETE) {
+-      JobScheduler::get('feeds_source_import')->set($job);
+-    }
+-    else {
+-      // Feed is not fully imported yet, so we put this job back in the queue
+-      // immediately for further processing.
+-      $queue = DrupalQueue::get('feeds_source_import');
+-      $queue->createItem($job);
++    elseif ($this->hasFetcherSource()) {
++      if ($this->progressImporting() === FEEDS_BATCH_COMPLETE) {
++        JobScheduler::get('feeds_source_import')->set($job);
++      }
++      else {
++        // Feed is not fully imported yet, so we put this job back in the queue
++        // immediately for further processing.
++        $queue = DrupalQueue::get('feeds_source_import');
++        $queue->createItem($job);
++      }
+     }
+   }
+ 
+@@ -622,24 +625,25 @@ class FeedsSource extends FeedsConfigurable {
+ 
+     // Store the source property of the fetcher in a separate column so that we
+     // can do fast lookups on it.
++    // Only save if there is a source so they can be optional on enities.
+     $source = '';
+-    if (isset($config[get_class($this->importer->fetcher)]['source'])) {
+-      $source = $config[get_class($this->importer->fetcher)]['source'];
+-    }
+-    $object = array(
+-      'id' => $this->id,
+-      'feed_nid' => $this->feed_nid,
+-      'imported' => $this->imported,
+-      'config' => $config,
+-      'source' => $source,
+-      'state' => isset($this->state) ? $this->state : FALSE,
+-      'fetcher_result' => isset($this->fetcher_result) ? $this->fetcher_result : FALSE,
+-    );
+-    if (db_query_range("SELECT 1 FROM {feeds_source} WHERE id = :id AND feed_nid = :nid", 0, 1, array(':id' => $this->id, ':nid' => $this->feed_nid))->fetchField()) {
+-      drupal_write_record('feeds_source', $object, array('id', 'feed_nid'));
+-    }
+-    else {
+-      drupal_write_record('feeds_source', $object);
++    if (isset($config[get_class($this->importer->fetcher)]['source']) &&
++      $source = $config[get_class($this->importer->fetcher)]['source']) {
++      $object = array(
++        'id' => $this->id,
++        'feed_nid' => $this->feed_nid,
++        'imported' => $this->imported,
++        'config' => $config,
++        'source' => $source,
++        'state' => isset($this->state) ? $this->state : FALSE,
++        'fetcher_result' => isset($this->fetcher_result) ? $this->fetcher_result : FALSE,
++      );
++      if (db_query_range("SELECT 1 FROM {feeds_source} WHERE id = :id AND feed_nid = :nid", 0, 1, array(':id' => $this->id, ':nid' => $this->feed_nid))->fetchField()) {
++        drupal_write_record('feeds_source', $object, array('id', 'feed_nid'));
++      }
++      else {
++        drupal_write_record('feeds_source', $object);
++      }
+     }
+   }
+ 
+@@ -861,6 +865,14 @@ class FeedsSource extends FeedsConfigurable {
+   }
+ 
+   /**
++   * Checks if the fetch source is empty.
++   */
++  public function hasFetcherSource() {
++    $fetcher_source_config = $this->getConfigFor($this->importer->fetcher);
++    return !empty($fetcher_source_config['source']);
++  }
++
++  /**
+    * Implements FeedsConfigurable::dependencies().
+    */
+   public function dependencies() {
+diff --git a/plugins/FeedsFetcher.inc b/plugins/FeedsFetcher.inc
+index 33457de..d54084e 100644
+--- a/plugins/FeedsFetcher.inc
++++ b/plugins/FeedsFetcher.inc
+@@ -222,4 +222,29 @@ abstract class FeedsFetcher extends FeedsPlugin {
+    *   $source, NULL otherwise.
+    */
+   public function importPeriod(FeedsSource $source) {}
++
++  /**
++   * Override parent::configDefaults().
++   */
++  public function configDefaults() {
++    return array(
++      'source_required' => TRUE,
++    );
++  }
++
++  /**
++   * Override parent::configForm().
++   */
++  public function configForm(&$form_state) {
++    $form = array();
++    // @todo Disable this option on stand-alone importers importer.
++    $form['source_required'] = array(
++      '#type' => 'checkbox',
++      '#title' => t('Require feed'),
++      '#description' => t('Ensure a feed source is provided during form submission.'),
++      '#default_value' => $this->config['source_required'],
++    );
++    return $form;
++  }
++
+ }
+diff --git a/plugins/FeedsFileFetcher.inc b/plugins/FeedsFileFetcher.inc
+index 6f1b310..91de9dd 100644
+--- a/plugins/FeedsFileFetcher.inc
++++ b/plugins/FeedsFileFetcher.inc
+@@ -107,6 +107,7 @@ class FeedsFileFetcher extends FeedsFetcher {
+       );
+       $form['upload'] = array(
+         '#type' => 'file',
++        '#name' => 'files[' . $this->id . ']',
+         '#title' => empty($this->config['direct']) ? t('File') : NULL,
+         '#description' => empty($source_config['source']) ? t('Select a file from your local system.') : t('Select a different file from your local system.'),
+         '#theme_wrappers' => array('feeds_upload'),
+@@ -147,18 +148,24 @@ class FeedsFileFetcher extends FeedsFetcher {
+         watchdog('feeds', 'The upload directory %directory required by a feed could not be created or is not accessible. A newly uploaded file could not be saved in this directory as a consequence, and the upload was canceled.', array('%directory' => $feed_dir));
+       }
+       // Validate and save uploaded file.
+-      elseif ($file = file_save_upload('feeds', array('file_validate_extensions' => array(0 => $this->config['allowed_extensions'])), $feed_dir)) {
++      elseif ($file = file_save_upload($this->id, array('file_validate_extensions' => array(0 => $this->config['allowed_extensions'])), $feed_dir)) {
+         $values['source'] = $file->uri;
+         $values['file'] = $file;
+       }
+       elseif (empty($values['source'])) {
+-        form_set_error('feeds][FeedsFileFetcher][source', t('Please upload a file.'));
++        if ($this->config['source_required']) {
++          form_set_error('feeds][FeedsFileFetcher][source', t('Please upload a file.'));
++        }
+       }
+       else {
+         // File present from previous upload. Nothing to validate.
+       }
+     }
+     else {
++      // Skip validating empty source if not required.
++      if (!$values['source'] && !$this->config['source_required']) {
++        return;
++      }
+       // Check if chosen url scheme is allowed.
+       $scheme = file_uri_scheme($values['source']);
+       if (!$scheme || !in_array($scheme, $this->config['allowed_schemes'])) {
+@@ -216,14 +223,14 @@ class FeedsFileFetcher extends FeedsFetcher {
+       'direct' => FALSE,
+       'directory' => $scheme . '://feeds',
+       'allowed_schemes' => $schemes,
+-    );
++    ) + parent::configDefaults();
+   }
+ 
+   /**
+    * Overrides parent::configForm().
+    */
+   public function configForm(&$form_state) {
+-    $form = array();
++    $form = parent::configForm($form_state);
+     $form['allowed_extensions'] = array(
+       '#type' => 'textfield',
+       '#title' => t('Allowed file extensions'),
+diff --git a/plugins/FeedsHTTPFetcher.inc b/plugins/FeedsHTTPFetcher.inc
+index cd91b63..a1e0e77 100644
+--- a/plugins/FeedsHTTPFetcher.inc
++++ b/plugins/FeedsHTTPFetcher.inc
+@@ -90,6 +90,9 @@ class FeedsHTTPFetcher extends FeedsFetcher {
+     if ($this->config['use_pubsubhubbub'] && ($raw = $this->subscriber($source->feed_nid)->receive())) {
+       return new FeedsFetcherResult($raw);
+     }
++    if (!$source_config['source']) {
++      throw new Exception(t('Source URL is empty.'));
++    }
+     $fetcher_result = new FeedsHTTPFetcherResult($source_config['source']);
+     // When request_timeout is empty, the global value is used.
+     $fetcher_result->setTimeout($this->config['request_timeout']);
+@@ -144,14 +147,14 @@ class FeedsHTTPFetcher extends FeedsFetcher {
+       'request_timeout' => NULL,
+       'auto_scheme' => 'http',
+       'accept_invalid_cert' => FALSE,
+-    );
++    ) + parent::configDefaults();
+   }
+ 
+   /**
+    * Override parent::configForm().
+    */
+   public function configForm(&$form_state) {
+-    $form = array();
++    $form = parent::configForm($form_state);
+     $form['auto_detect_feeds'] = array(
+       '#type' => 'checkbox',
+       '#title' => t('Auto detect feeds'),
+@@ -218,7 +221,7 @@ class FeedsHTTPFetcher extends FeedsFetcher {
+       '#description' => t('Enter a feed URL.'),
+       '#default_value' => isset($source_config['source']) ? $source_config['source'] : '',
+       '#maxlength' => NULL,
+-      '#required' => TRUE,
++      '#required' => $this->config['source_required'],
+     );
+     return $form;
+   }
+@@ -228,6 +231,10 @@ class FeedsHTTPFetcher extends FeedsFetcher {
+    */
+   public function sourceFormValidate(&$values) {
+     $values['source'] = trim($values['source']);
++    // Skip validating empty source if not required.
++    if (!$values['source'] && !$this->config['source_required']) {
++      return;
++    }
+ 
+     // Keep a copy for error messages.
+     $original_url = $values['source'];
+@@ -238,7 +245,7 @@ class FeedsHTTPFetcher extends FeedsFetcher {
+     }
+ 
+     if (!feeds_valid_url($values['source'], TRUE)) {
+-      $form_key = 'feeds][' . get_class($this) . '][source';
++      $form_key = 'feeds][' . $this->id . '][' . get_class($this) . '][source';
+       form_set_error($form_key, t('The URL %source is invalid.', array('%source' => $original_url)));
+     }
+     elseif ($this->config['auto_detect_feeds']) {
+diff --git a/plugins/FeedsNodeProcessor.inc b/plugins/FeedsNodeProcessor.inc
+index 2cfdf30..16659e7 100644
+--- a/plugins/FeedsNodeProcessor.inc
++++ b/plugins/FeedsNodeProcessor.inc
+@@ -234,21 +234,20 @@ class FeedsNodeProcessor extends FeedsProcessor {
+    * Override setTargetElement to operate on a target item that is a node.
+    */
+   public function setTargetElement(FeedsSource $source, $target_node, $target_element, $value) {
++    $id = $this->bundle();
++    if ($target_element == 'feeds_source_' . $id) {
++      // Get the class of the feed node importer's fetcher and set the source
++      // property. See feeds_node_update() how $node->feeds gets stored.
++      $class = get_class(feeds_importer($id)->fetcher);
++      $target_node->feeds[$id][$class]['source'] = $value;
++      // This effectively suppresses 'import on submission' feature.
++      // See feeds_node_insert().
++      $target_node->feeds['suppress_import'] = TRUE;
++    }
+     switch ($target_element) {
+       case 'created':
+         $target_node->created = feeds_to_unixtime($value, REQUEST_TIME);
+         break;
+-      case 'feeds_source':
+-        // Get the class of the feed node importer's fetcher and set the source
+-        // property. See feeds_node_update() how $node->feeds gets stored.
+-        if ($id = feeds_get_importer_id($this->bundle())) {
+-          $class = get_class(feeds_importer($id)->fetcher);
+-          $target_node->feeds[$class]['source'] = $value;
+-          // This effectively suppresses 'import on submission' feature.
+-          // See feeds_node_insert().
+-          $target_node->feeds['suppress_import'] = TRUE;
+-        }
+-        break;
+       case 'user_name':
+         if ($user = user_load_by_name($value)) {
+           $target_node->uid = $user->uid;
+@@ -330,13 +329,15 @@ class FeedsNodeProcessor extends FeedsProcessor {
+     }
+ 
+     // If the target content type is a Feed node, expose its source field.
+-    if ($id = feeds_get_importer_id($this->bundle())) {
+-      $name = feeds_importer($id)->config['name'];
+-      $targets['feeds_source'] = array(
+-        'name' => t('Feed source'),
+-        'description' => t('The content type created by this processor is a Feed Node, it represents a source itself. Depending on the fetcher selected on the importer "@importer", this field is expected to be for example a URL or a path to a file.', array('@importer' => $name)),
+-        'optional_unique' => TRUE,
+-      );
++    if ($ids = feeds_get_importer_ids($this->config['bundle'])) {
++      foreach ($ids as $id) {
++        $name = feeds_importer($id)->config['name'];
++        $targets['feeds_source_' . $id] = array(
++          'name' => t('Feed source ' . $name),
++          'description' => t('The content type created by this processor is a Feed Node, it represents a source itself. Depending on the fetcher selected on the importer "@importer", this field is expected to be for example a URL or a path to a file.', array('@importer' => $name)),
++          'optional_unique' => TRUE,
++        );
++      }
+     }
+ 
+     $this->getHookTargets($targets);
+@@ -362,11 +363,13 @@ class FeedsNodeProcessor extends FeedsProcessor {
+         case 'title':
+           $nid = db_query("SELECT nid FROM {node} WHERE title = :title AND type = :type", array(':title' => $value, ':type' => $this->bundle()))->fetchField();
+           break;
+-        case 'feeds_source':
+-          if ($id = feeds_get_importer_id($this->bundle())) {
++      }
++      if (isset($this->config['content_type']) && $ids = feeds_get_importer_ids($this->config['content_type'])) {
++        foreach ($ids as $id) {
++          if ($target == 'feeds_source_' . $id) {
+             $nid = db_query("SELECT fs.feed_nid FROM {node} n JOIN {feeds_source} fs ON n.nid = fs.feed_nid WHERE fs.id = :id AND fs.source = :source", array(':id' => $id, ':source' => $value))->fetchField();
+           }
+-          break;
++        }
+       }
+       if ($nid) {
+         // Return with the first nid found.
+diff --git a/tests/feeds.test b/tests/feeds.test
+index b3ce145..b413942 100644
+--- a/tests/feeds.test
++++ b/tests/feeds.test
+@@ -261,7 +261,7 @@ class FeedsWebTestCase extends DrupalWebTestCase {
+     // Create a feed node.
+     $edit = array(
+       'title' => $title,
+-      'feeds[FeedsHTTPFetcher][source]' => $feed_url,
++      'feeds[' . $id  . '][FeedsHTTPFetcher][source]' => $feed_url,
+     );
+     $this->drupalPost('node/add/' . str_replace('_', '-', $content_type), $edit, 'Save');
+     $this->assertText('has been created.');
+@@ -297,10 +297,10 @@ class FeedsWebTestCase extends DrupalWebTestCase {
+    * @param $title
+    *   Optional parameter to change title of feed node.
+    */
+-  public function editFeedNode($nid, $feed_url, $title = '') {
++  public function editFeedNode($nid, $feed_url, $id = 'syndication', $title = '') {
+     $edit = array(
+       'title' => $title,
+-      'feeds[FeedsHTTPFetcher][source]' => $feed_url,
++      'feeds[' . $id . '][FeedsHTTPFetcher][source]' => $feed_url,
+     );
+     // Check that the update was saved.
+     $this->drupalPost('node/' . $nid . '/edit', $edit, 'Save');
+@@ -363,7 +363,7 @@ class FeedsWebTestCase extends DrupalWebTestCase {
+ 
+     $this->assertTrue(file_exists($file), 'Source file exists');
+     $edit = array(
+-      'files[feeds]' => $file,
++      "files[$id]" => $file,
+     );
+     $this->drupalPost('import/' . $id, $edit, 'Import');
+   }
+diff --git a/tests/feeds_processor_node.test b/tests/feeds_processor_node.test
+index c5cbd05..e0e09e1 100644
+--- a/tests/feeds_processor_node.test
++++ b/tests/feeds_processor_node.test
+@@ -356,7 +356,7 @@ class FeedsRSStoNodesTest extends FeedsWebTestCase {
+ 
+     // Create a feed node.
+     $edit = array(
+-      'files[feeds]' => $this->absolutePath() . '/tests/feeds/drupalplanet.rss2',
++      'files[syndication_standalone]' => $this->absolutePath() . '/tests/feeds/drupalplanet.rss2',
+     );
+     $this->drupalPost('import/syndication_standalone', $edit, 'Import');
+     $this->assertText('Created 25 nodes');
+@@ -409,8 +409,8 @@ class FeedsRSStoNodesTest extends FeedsWebTestCase {
+   /**
+    * Test validation of feed URLs.
+    */
+-  public function testFeedURLValidation() {
+-    $edit['feeds[FeedsHTTPFetcher][source]'] = 'invalid://url';
++  public function testFeedURLValidation($id = 'syndication') {
++    $edit['feeds[' . $id . '][FeedsHTTPFetcher][source]'] = 'invalid://url';
+     $this->drupalPost('node/add/page', $edit, 'Save');
+     $this->assertText('The URL invalid://url is invalid.');
+   }
+@@ -418,7 +418,7 @@ class FeedsRSStoNodesTest extends FeedsWebTestCase {
+   /**
+    * Test using non-normal URLs like feed:// and webcal://.
+    */
+-  public function testOddFeedSchemes() {
++  public function testOddFeedSchemes($id = 'syndication') {
+     $url = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds') . '/tests/feeds/developmentseed.rss2';
+ 
+     $schemes = array('feed', 'webcal');
+@@ -426,7 +426,7 @@ class FeedsRSStoNodesTest extends FeedsWebTestCase {
+     foreach ($schemes as $scheme) {
+       $feed_url = strtr($url, array('http://' => $scheme . '://', 'https://' => $scheme . '://'));
+ 
+-      $edit['feeds[FeedsHTTPFetcher][source]'] = $feed_url;
++      $edit['feeds[' . $id  . '][FeedsHTTPFetcher][source]'] = $feed_url;
+       $this->drupalPost('node/add/page', $edit, 'Save');
+       $this->assertText('Basic page Development Seed - Technological Solutions for Progressive Organizations has been created.');
+       $this->assertText('Created 10 nodes.');
+@@ -438,7 +438,7 @@ class FeedsRSStoNodesTest extends FeedsWebTestCase {
+   /**
+    * Test that feed elements and links are not found on non-feed nodes.
+    */
+-  public function testNonFeedNodeUI() {
++  public function testNonFeedNodeUI($id = 'syndication') {
+     // There should not be feed links on an article node.
+     $non_feed_node = $this->drupalCreateNode(array('type' => 'article'));
+     $this->drupalGet('node/' . $non_feed_node->nid);
+@@ -447,7 +447,7 @@ class FeedsRSStoNodesTest extends FeedsWebTestCase {
+ 
+     // Navigate to a non-feed node form, there should be no Feed field visible.
+     $this->drupalGet('node/add/article');
+-    $this->assertNoFieldByName('feeds[FeedsHTTPFetcher][source]');
++    $this->assertNoFieldByName('feeds[' . $id . '][FeedsHTTPFetcher][source]');
+   }
+ 
+   /**

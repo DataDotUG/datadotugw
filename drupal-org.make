@@ -71,9 +71,10 @@ projects[feeds][version] = 2.0-beta1
 projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
 projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-undefined-variable-original-author-2117537-7.patch"
-#projects[feeds][patches][] = "https://www.drupal.org/files/issues/feeds-optional_source_num48_rerolled-856316.patch"
-projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-optional_source-856316-63.patch"
-projects[feeds][patch][] = "https://www.drupal.org/files/issues/1127696-97.patch"
+# I needed to roll the last 2 patches into 1 to make this makefile work
+projects[feeds][patch][] = "https://raw.githubusercontent.com/DataDotUG/datadotugw/7.x-1.x/feeds_1127696-97_and_856316-7.patch"
+#projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-optional_source-856316-63.patch"
+#projects[feeds][patch][] = "https://www.drupal.org/files/issues/1127696-97.patch"
 
 projects[feeds_ex][version] = 1.0-beta2
 projects[feeds_ex][type] = "module"
