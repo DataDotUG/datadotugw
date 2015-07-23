@@ -29,7 +29,7 @@ projects[calendar][subdir] = "contrib"
 projects[cer][version] = 3.0-alpha7
 projects[cer][type] = "module"
 projects[cer][subdir] = "contrib"
-projects[cer][patches] = "https://www.drupal.org/files/issues/cer-features-iterator-2382365-15.patch"
+projects[cer][patch][] = "https://www.drupal.org/files/issues/cer-features-iterator-2382365-15.patch"
 
 projects[charts_graphs][version] = "2.0"
 projects[charts_graphs][type] = "module"
