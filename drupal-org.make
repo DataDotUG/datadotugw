@@ -272,7 +272,7 @@ libraries[jsonpath][download][type] = "file"
 libraries[jsonpath][download][url] = "https://jsonpath.googlecode.com/files/jsonpath-0.8.1.php"
 libraries[jsonpath][directory_name] = "jsonpath"
 libraries[jsonpath][destination] = "libraries"
-libraries[jsonpath][filename] = "jsonpath.php"
+libraries[jsonpath][download][filename] = "jsonpath.php"
 
 libraries[less][download][type] = "file"
 libraries[less][download][url] = "https://github.com/oyejorge/less.php/releases/download/v1.7.0.2/less.php_1.7.0.2.zip"
