@@ -47,7 +47,7 @@ projects[css_browser_selector][version] = 1.1
 projects[css_browser_selector][type] = "module"
 projects[css_browser_selector][subdir] = "contrib"
 
-projects[ds][version] = 2.10
+projects[ds][version] = 2.11
 projects[ds][type] = "module"
 projects[ds][subdir] = "contrib"
 
@@ -63,7 +63,7 @@ projects[faq][version] = 1.0-rc3
 projects[faq][type] = "module"
 projects[faq][subdir] = "contrib"
 
-projects[features_extra][version] = 1.0-beta1
+projects[features_extra][version] = 1.0
 projects[features_extra][type] = "module"
 projects[features_extra][subdir] = "contrib"
 
@@ -120,7 +120,7 @@ projects[google_groups][type] = "module"
 projects[google_groups][subdir] = "contrib"
 projects[google_groups][patch][] = "http://cgit.drupalcode.org/google_groups/patch/?id=81b057b01020506d27763bb93e644054f53be9fb"
 
-projects[icon][version] = 1.0-beta5
+projects[icon][version] = 1.0-beta6
 projects[icon][type] = "module"
 projects[icon][subdir] = "contrib"
 
@@ -148,7 +148,7 @@ projects[module_filter][version] = 2.0-alpha2
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
 
-projects[multiblock][version] = 1.2
+projects[multiblock][version] = 1.4
 projects[multiblock][type] = "module"
 projects[multiblock][subdir] = "contrib"
 
@@ -201,7 +201,7 @@ projects[table_element][version] = 1.0-beta1
 projects[table_element][type] = "module"
 projects[table_element][subdir] = "contrib"
 
-projects[twitter_block][version] = 2.2
+projects[twitter_block][version] = 2.3
 projects[twitter_block][type] = "module"
 projects[twitter_block][subdir] = "contrib"
 
@@ -233,7 +233,7 @@ projects[votingapi][version] = 2.12
 projects[votingapi][type] = "module"
 projects[votingapi][subdir] = "contrib"
 
-projects[webform][version] = 4.10
+projects[webform][version] = 4.11
 projects[webform][type] = "module"
 projects[webform][subdir] = "contrib"
 
@@ -248,7 +248,7 @@ includes[mountbatten_web_media] = https://raw.githubusercontent.com/mountbatten/
 includes[mountbatten_developer] = https://raw.githubusercontent.com/mountbatten/mountbatten_makefiles/master/mountbatten_developer.make
 
 ; Base theme.
-projects[bootstrap][version] = 3.0
+projects[bootstrap][version] = 3.1-beta3
 projects[bootstrap][type] = "theme"
 projects[bootstrap][patch] = "https://www.drupal.org/files/issues/bootstrap-webform-email.patch"
 
